@@ -286,7 +286,14 @@ function TiendaFisica() {
   return (
     <section className="visita" id="visitanos" aria-labelledby="titulo-visita">
       <div className="visita__mapa" data-revelar>
-        <iframe title={`Mapa: ${direccion}`} src={`https://maps.google.com/maps?q=${q}&z=16&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+        {import.meta.env.VITE_ARTEFACTO ? (
+          <a className="visita__sin-mapa" href={`https://www.google.com/maps/search/?api=1&query=${q}`} target="_blank" rel="noreferrer">
+            <Icono nombre="pin" />
+            <span>Ver en Google Maps</span>
+          </a>
+        ) : (
+          <iframe title={`Mapa: ${direccion}`} src={`https://maps.google.com/maps?q=${q}&z=16&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+        )}
       </div>
       <div className="visita__info" data-revelar>
         <p className="sobretitulo">Tienda física</p>

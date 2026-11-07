@@ -1404,6 +1404,29 @@ html:not([data-entrada]) [data-entra] {
 .visita__info {
   padding: 56px var(--margen);
 }
+.visita__sin-mapa {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  height: 100%;
+  min-height: 340px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 46px, #262626 46px 48px),
+    repeating-linear-gradient(90deg, transparent 0 46px, #262626 46px 48px),
+    #181818;
+}
+.visita__sin-mapa .icono {
+  width: 44px;
+  height: 44px;
+  color: var(--rojo);
+}
 .visita__info address {
   margin: 20px 0 12px;
   font-size: 24px;

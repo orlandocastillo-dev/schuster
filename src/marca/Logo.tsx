@@ -48,7 +48,7 @@ export function Sprite() {
         </radialGradient>
         {TEXTURAS.map((t) => (
           <pattern key={t} id={`t-${t}`} width="48" height="48" patternUnits="userSpaceOnUse">
-            <image href={`/texturas/${t}.png`} width="48" height="48" />
+            <image href={`${import.meta.env.BASE_URL}texturas/${t}.png`} width="48" height="48" />
           </pattern>
         ))}
       </defs>

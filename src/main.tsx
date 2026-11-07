@@ -1,6 +1,6 @@
 import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createMemoryRouter, RouterProvider } from "react-router-dom";
 import { Marco } from "./componentes/Marco";
 import Inicio from "./paginas/Inicio";
 import Seccion from "./paginas/Seccion";
@@ -14,7 +14,7 @@ const GuiaTallasPagina = lazy(() => import("./paginas/GuiaTallasPagina"));
 
 const esperar = (el: React.ReactNode) => <Suspense fallback={<div className="cargando" aria-label="Cargando" />}>{el}</Suspense>;
 
-const router = createBrowserRouter([
+const rutas = [
   {
     element: <Marco />,
     children: [
@@ -30,7 +30,10 @@ const router = createBrowserRouter([
       { path: "*", element: <NoEncontrada /> },
     ],
   },
-]);
+];
+
+// En la vista previa de Claude la página vive dentro de un marco y no puede usar la barra de direcciones
+const router = import.meta.env.VITE_ARTEFACTO ? createMemoryRouter(rutas) : createBrowserRouter(rutas);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
