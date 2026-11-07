@@ -1,0 +1,846 @@
+{
+  "colores": {
+    "Negro": "#141414",
+    "Blanco": "#f4f4f1",
+    "Rojo": "#c8221a",
+    "Gris jaspe": "#9b9c98",
+    "Azul oscuro": "#1e2a44",
+    "Arena": "#d9c9a8",
+    "Verde oliva": "#5a6142",
+    "Vinotinto": "#6a1f2b",
+    "Rosa palo": "#e7bab4",
+    "Azul cielo": "#9cc2e4",
+    "Lila": "#b8a5d4",
+    "Índigo": "#2c3b5e",
+    "Denim claro": "#6b8bb3",
+    "Caqui": "#b39a6b",
+    "Amarillo": "#f1c232",
+    "Verde neón": "#c9e33a",
+    "Naranja": "#ef6c22"
+  },
+  "productos": [
+    {
+      "id": "camiseta-leon-clasica",
+      "nombre": "Camiseta León Clásica",
+      "seccion": "hombre",
+      "tipo": "Camiseta",
+      "forma": "camiseta",
+      "tallas": "adulto",
+      "precio": 49900,
+      "colores": [
+        "Negro",
+        "Blanco",
+        "Rojo",
+        "Gris jaspe"
+      ],
+      "estampado": "leon",
+      "nuevo": true,
+      "llegada": "2026-11-01",
+      "descripcion": "Algodón peinado de tacto suave, cuello redondo en rib y el león estampado al frente. La que combina con todo."
+    },
+    {
+      "id": "camiseta-oversize-schuster",
+      "nombre": "Camiseta Oversize Schuster",
+      "seccion": "hombre",
+      "tipo": "Camiseta",
+      "forma": "camiseta",
+      "tallas": "adulto",
+      "precio": 59900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Arena"
+      ],
+      "estampado": "palabra",
+      "nuevo": true,
+      "llegada": "2026-10-28",
+      "descripcion": "Corte holgado, hombro caído y la palabra SCHUSTER de lado a lado del pecho."
+    },
+    {
+      "id": "polo-pique-bordado",
+      "nombre": "Polo Piqué Bordado",
+      "seccion": "hombre",
+      "tipo": "Camiseta polo",
+      "forma": "polo",
+      "tallas": "adulto",
+      "precio": 69900,
+      "colores": [
+        "Azul oscuro",
+        "Blanco",
+        "Negro",
+        "Vinotinto"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-10",
+      "descripcion": "Tela piqué, cuello tejido y dos botones. El león va bordado en el pecho."
+    },
+    {
+      "id": "camisa-oxford-manga-corta",
+      "nombre": "Camisa Oxford Manga Corta",
+      "seccion": "hombre",
+      "tipo": "Camisa manga corta",
+      "forma": "camisa-corta",
+      "tallas": "adulto",
+      "precio": 89900,
+      "colores": [
+        "Blanco",
+        "Azul cielo",
+        "Negro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-20",
+      "descripcion": "Tela oxford fresca para el calor de Barranquilla, bolsillo al pecho y botones de nácar."
+    },
+    {
+      "id": "camisa-oxford-manga-larga",
+      "nombre": "Camisa Oxford Manga Larga",
+      "seccion": "hombre",
+      "tipo": "Camisa manga larga",
+      "forma": "camisa-larga",
+      "tallas": "adulto",
+      "precio": 99900,
+      "colores": [
+        "Blanco",
+        "Azul cielo",
+        "Azul oscuro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-20",
+      "descripcion": "La camisa de oficina que también sirve para salir. Puños con botón y cuello firme."
+    },
+    {
+      "id": "chaqueta-cortavientos",
+      "nombre": "Chaqueta Cortavientos",
+      "seccion": "hombre",
+      "tipo": "Chaqueta",
+      "forma": "chaqueta",
+      "tallas": "chaqueta",
+      "precio": 149900,
+      "colores": [
+        "Negro",
+        "Verde oliva",
+        "Azul oscuro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": true,
+      "llegada": "2026-11-03",
+      "descripcion": "Liviana y repelente al agua, con cuello alto, cremallera completa y bolsillos laterales."
+    },
+    {
+      "id": "buzo-capota-leon",
+      "nombre": "Buzo con Capota León",
+      "seccion": "hombre",
+      "tipo": "Buzo",
+      "forma": "buzo",
+      "tallas": "adulto",
+      "precio": 119900,
+      "colores": [
+        "Negro",
+        "Gris jaspe",
+        "Arena"
+      ],
+      "estampado": "leon",
+      "nuevo": true,
+      "llegada": "2026-10-30",
+      "descripcion": "Felpa por dentro, bolsillo canguro y cordones en la capota. El león grande al frente."
+    },
+    {
+      "id": "chaleco-acolchado",
+      "nombre": "Chaleco Acolchado",
+      "seccion": "hombre",
+      "tipo": "Chaleco",
+      "forma": "chaleco",
+      "tallas": "adulto",
+      "precio": 129900,
+      "colores": [
+        "Negro",
+        "Azul oscuro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-05",
+      "descripcion": "Acolchado liviano para las mañanas frescas o el aire acondicionado de la oficina."
+    },
+    {
+      "id": "pantaloneta-deportiva",
+      "nombre": "Pantaloneta Deportiva",
+      "seccion": "hombre",
+      "tipo": "Pantaloneta",
+      "forma": "pantaloneta",
+      "tallas": "pantaloneta",
+      "precio": 54900,
+      "colores": [
+        "Negro",
+        "Azul oscuro",
+        "Gris jaspe"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-15",
+      "descripcion": "Tela de secado rápido, pretina con cordón y franja lateral."
+    },
+    {
+      "id": "jean-clasico",
+      "nombre": "Jean Clásico",
+      "seccion": "hombre",
+      "tipo": "Jeans",
+      "forma": "jeans",
+      "tallas": "adulto",
+      "precio": 129900,
+      "colores": [
+        "Índigo",
+        "Denim claro",
+        "Negro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-12",
+      "descripcion": "Denim resistente de cinco bolsillos, con el león pespunteado en el bolsillo de atrás."
+    },
+    {
+      "id": "sudadera-clasica",
+      "nombre": "Sudadera Clásica",
+      "seccion": "hombre",
+      "tipo": "Sudadera",
+      "forma": "sudadera",
+      "tallas": "pijama",
+      "precio": 89900,
+      "colores": [
+        "Gris jaspe",
+        "Negro",
+        "Azul oscuro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-01",
+      "descripcion": "Felpa cómoda, puño en el tobillo y bolsillos laterales."
+    },
+    {
+      "id": "jogger-urbano",
+      "nombre": "Jogger Urbano",
+      "seccion": "hombre",
+      "tipo": "Jogger",
+      "forma": "jogger",
+      "tallas": "adulto",
+      "precio": 99900,
+      "colores": [
+        "Negro",
+        "Caqui",
+        "Verde oliva"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-22",
+      "descripcion": "Bota recogida, bolsillo lateral y tela con un poco de elasticidad."
+    },
+    {
+      "id": "pijama-botones-hombre",
+      "nombre": "Pijama de Botones",
+      "seccion": "hombre",
+      "tipo": "Pijama",
+      "forma": "pijama",
+      "tallas": "pijama",
+      "precio": 89900,
+      "colores": [
+        "Azul oscuro",
+        "Gris jaspe"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-08-30",
+      "descripcion": "Camisa con ribete de contraste y pantalón largo. Tela fresca para dormir bien."
+    },
+    {
+      "id": "uniforme-deportivo",
+      "nombre": "Uniforme Deportivo",
+      "seccion": "hombre",
+      "tipo": "Uniforme",
+      "forma": "uniforme",
+      "tallas": "adulto",
+      "precio": 99900,
+      "colores": [
+        "Rojo",
+        "Azul oscuro",
+        "Blanco"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-10-18",
+      "descripcion": "Camiseta de equipo con mangas en contraste. Pídelo con nombres y números para todo el equipo."
+    },
+    {
+      "id": "peto-entrenamiento",
+      "nombre": "Peto de Entrenamiento",
+      "seccion": "hombre",
+      "tipo": "Peto",
+      "forma": "peto",
+      "tallas": "adulto",
+      "precio": 29900,
+      "colores": [
+        "Verde neón",
+        "Naranja",
+        "Rojo"
+      ],
+      "estampado": "palabra",
+      "nuevo": false,
+      "llegada": "2026-08-25",
+      "descripcion": "Malla liviana para entrenar y separar equipos. Se puede numerar."
+    },
+    {
+      "id": "camiseta-dama-leon",
+      "nombre": "Camiseta Dama León",
+      "seccion": "dama",
+      "tipo": "Camiseta",
+      "forma": "camiseta-dama",
+      "tallas": "dama",
+      "precio": 49900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Rosa palo",
+        "Lila"
+      ],
+      "estampado": "leon",
+      "nuevo": true,
+      "llegada": "2026-11-02",
+      "descripcion": "Corte entallado, manga corta y cuello redondo. El león al frente."
+    },
+    {
+      "id": "blusa-cuello-v",
+      "nombre": "Blusa Cuello en V",
+      "seccion": "dama",
+      "tipo": "Blusa",
+      "forma": "blusa",
+      "tallas": "dama",
+      "precio": 79900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Vinotinto"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-12",
+      "descripcion": "Tela fluida, cuello en V y caída suave. Para la oficina o para salir."
+    },
+    {
+      "id": "top-deportivo",
+      "nombre": "Top Deportivo",
+      "seccion": "dama",
+      "tipo": "Top",
+      "forma": "top",
+      "tallas": "dama",
+      "precio": 54900,
+      "colores": [
+        "Negro",
+        "Rosa palo",
+        "Lila"
+      ],
+      "estampado": "leon",
+      "nuevo": true,
+      "llegada": "2026-10-26",
+      "descripcion": "Soporte medio, espalda cruzada y banda elástica con la marca."
+    },
+    {
+      "id": "polo-dama",
+      "nombre": "Polo Dama",
+      "seccion": "dama",
+      "tipo": "Camiseta polo",
+      "forma": "polo",
+      "tallas": "dama",
+      "precio": 64900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Rojo"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-28",
+      "descripcion": "Piqué entallado con el león bordado en el pecho."
+    },
+    {
+      "id": "buzo-dama",
+      "nombre": "Buzo Dama con Capota",
+      "seccion": "dama",
+      "tipo": "Buzo",
+      "forma": "buzo",
+      "tallas": "dama",
+      "precio": 109900,
+      "colores": [
+        "Rosa palo",
+        "Gris jaspe",
+        "Negro"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-10-20",
+      "descripcion": "Felpa suave, capota con cordones y bolsillo canguro."
+    },
+    {
+      "id": "pijama-dama",
+      "nombre": "Pijama Dama",
+      "seccion": "dama",
+      "tipo": "Pijama",
+      "forma": "pijama",
+      "tallas": "pijama",
+      "precio": 84900,
+      "colores": [
+        "Rosa palo",
+        "Lila",
+        "Azul cielo"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-05",
+      "descripcion": "Conjunto de camisa con ribete y pantalón. Fresco y cómodo."
+    },
+    {
+      "id": "jogger-dama",
+      "nombre": "Jogger Dama",
+      "seccion": "dama",
+      "tipo": "Jogger",
+      "forma": "jogger",
+      "tallas": "dama",
+      "precio": 89900,
+      "colores": [
+        "Negro",
+        "Gris jaspe",
+        "Arena"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-10-08",
+      "descripcion": "Tiro alto, bota recogida y bolsillos laterales."
+    },
+    {
+      "id": "chaqueta-dama-liviana",
+      "nombre": "Chaqueta Dama Liviana",
+      "seccion": "dama",
+      "tipo": "Chaqueta",
+      "forma": "chaqueta",
+      "tallas": "chaqueta",
+      "precio": 139900,
+      "colores": [
+        "Negro",
+        "Arena"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": true,
+      "llegada": "2026-10-29",
+      "descripcion": "Cortavientos liviana con cuello alto y cremallera completa."
+    },
+    {
+      "id": "camiseta-nino-leon",
+      "nombre": "Camiseta Niño León",
+      "seccion": "infantil",
+      "tipo": "Camiseta",
+      "forma": "camiseta",
+      "tallas": "nino",
+      "precio": 34900,
+      "colores": [
+        "Rojo",
+        "Azul cielo",
+        "Blanco",
+        "Amarillo"
+      ],
+      "estampado": "leon",
+      "nuevo": true,
+      "llegada": "2026-10-27",
+      "descripcion": "Algodón suave para el colegio, el parque o el fin de semana."
+    },
+    {
+      "id": "camiseta-infantil",
+      "nombre": "Camiseta Infantil",
+      "seccion": "infantil",
+      "tipo": "Camiseta",
+      "forma": "camiseta",
+      "tallas": "infantil",
+      "precio": 29900,
+      "colores": [
+        "Blanco",
+        "Amarillo",
+        "Azul cielo"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-09-30",
+      "descripcion": "Para los más pequeños, desde la talla 2T. Cuello que no aprieta."
+    },
+    {
+      "id": "buzo-infantil",
+      "nombre": "Buzo Infantil con Capota",
+      "seccion": "infantil",
+      "tipo": "Buzo",
+      "forma": "buzo",
+      "tallas": "infantil",
+      "precio": 79900,
+      "colores": [
+        "Rojo",
+        "Gris jaspe",
+        "Azul oscuro"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-10-16",
+      "descripcion": "Felpa abrigada con capota y bolsillo canguro."
+    },
+    {
+      "id": "pantaloneta-infantil",
+      "nombre": "Pantaloneta Infantil",
+      "seccion": "infantil",
+      "tipo": "Pantaloneta",
+      "forma": "pantaloneta",
+      "tallas": "nino",
+      "precio": 34900,
+      "colores": [
+        "Azul oscuro",
+        "Rojo"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-18",
+      "descripcion": "Pretina elástica con cordón y tela de secado rápido."
+    },
+    {
+      "id": "pijama-infantil",
+      "nombre": "Pijama Infantil",
+      "seccion": "infantil",
+      "tipo": "Pijama",
+      "forma": "pijama",
+      "tallas": "infantil",
+      "precio": 59900,
+      "colores": [
+        "Azul cielo",
+        "Amarillo",
+        "Rosa palo"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-08",
+      "descripcion": "Camisa y pantalón de tela fresca para dormir sin calor."
+    },
+    {
+      "id": "uniforme-infantil",
+      "nombre": "Uniforme Deportivo Infantil",
+      "seccion": "infantil",
+      "tipo": "Uniforme",
+      "forma": "uniforme",
+      "tallas": "nino",
+      "precio": 79900,
+      "colores": [
+        "Azul oscuro",
+        "Rojo"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-10-11",
+      "descripcion": "Para la escuela de fútbol o el equipo del colegio, con nombre y número."
+    },
+    {
+      "id": "sudadera-infantil",
+      "nombre": "Sudadera Infantil",
+      "seccion": "infantil",
+      "tipo": "Sudadera",
+      "forma": "sudadera",
+      "tallas": "infantil",
+      "precio": 59900,
+      "colores": [
+        "Gris jaspe",
+        "Azul oscuro"
+      ],
+      "estampado": "leon-pequeno",
+      "nuevo": false,
+      "llegada": "2026-09-02",
+      "descripcion": "Pretina con cordón y puño en el tobillo."
+    },
+    {
+      "id": "totebag-lona",
+      "nombre": "Totebag de Lona",
+      "seccion": "accesorios",
+      "tipo": "Totebag",
+      "forma": "totebag",
+      "tallas": "unica",
+      "precio": 34900,
+      "colores": [
+        "Arena",
+        "Negro",
+        "Blanco"
+      ],
+      "estampado": "logo",
+      "nuevo": true,
+      "llegada": "2026-10-24",
+      "descripcion": "Lona gruesa con asas largas para llevarla al hombro."
+    },
+    {
+      "id": "tula-cordon",
+      "nombre": "Tula con Cordón",
+      "seccion": "accesorios",
+      "tipo": "Tula",
+      "forma": "tula",
+      "tallas": "unica",
+      "precio": 24900,
+      "colores": [
+        "Negro",
+        "Rojo",
+        "Azul oscuro"
+      ],
+      "estampado": "logo",
+      "nuevo": false,
+      "llegada": "2026-10-02",
+      "descripcion": "Liviana, con cordones que sirven de tirantes. Para el gimnasio o el colegio."
+    },
+    {
+      "id": "mochila-urbana",
+      "nombre": "Mochila Urbana",
+      "seccion": "accesorios",
+      "tipo": "Mochila",
+      "forma": "mochila",
+      "tallas": "unica",
+      "precio": 119900,
+      "colores": [
+        "Negro",
+        "Gris jaspe"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-10-19",
+      "descripcion": "Compartimento acolchado, bolsillo frontal y espalda con malla."
+    },
+    {
+      "id": "gorra-leon",
+      "nombre": "Gorra León",
+      "seccion": "accesorios",
+      "tipo": "Gorra",
+      "forma": "gorra",
+      "tallas": "unica",
+      "precio": 44900,
+      "colores": [
+        "Negro",
+        "Blanco",
+        "Rojo",
+        "Azul oscuro"
+      ],
+      "estampado": "leon",
+      "nuevo": true,
+      "llegada": "2026-11-04",
+      "descripcion": "Seis paneles, visera curva y correa ajustable atrás."
+    },
+    {
+      "id": "toalla-rizo",
+      "nombre": "Toalla de Rizo",
+      "seccion": "accesorios",
+      "tipo": "Toalla",
+      "forma": "toalla",
+      "tallas": "unica",
+      "precio": 39900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Azul oscuro"
+      ],
+      "estampado": "palabra",
+      "nuevo": false,
+      "llegada": "2026-09-15",
+      "descripcion": "Rizo absorbente con la marca bordada en la franja."
+    },
+    {
+      "id": "manga-deportiva",
+      "nombre": "Manga Deportiva",
+      "seccion": "accesorios",
+      "tipo": "Manga",
+      "forma": "manga",
+      "tallas": "unica",
+      "precio": 19900,
+      "colores": [
+        "Negro",
+        "Blanco"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-09-10",
+      "descripcion": "Protege del sol para correr, montar bicicleta o trabajar al aire libre."
+    },
+    {
+      "id": "delantal-cocina",
+      "nombre": "Delantal de Cocina",
+      "seccion": "accesorios",
+      "tipo": "Delantal",
+      "forma": "delantal",
+      "tallas": "unica",
+      "precio": 39900,
+      "colores": [
+        "Negro",
+        "Arena",
+        "Vinotinto"
+      ],
+      "estampado": "logo",
+      "nuevo": false,
+      "llegada": "2026-09-25",
+      "descripcion": "Dril resistente, bolsillo doble y tiras largas. Ideal para restaurantes y cafés."
+    },
+    {
+      "id": "capa-barberia",
+      "nombre": "Capa de Barbería",
+      "seccion": "accesorios",
+      "tipo": "Capa de barbería",
+      "forma": "capa",
+      "tallas": "unica",
+      "precio": 69900,
+      "colores": [
+        "Negro",
+        "Blanco"
+      ],
+      "estampado": "logo",
+      "nuevo": false,
+      "llegada": "2026-10-06",
+      "descripcion": "Tela impermeable que no se pega el pelo, con broche al cuello."
+    },
+    {
+      "id": "visera-deportiva",
+      "nombre": "Visera Deportiva",
+      "seccion": "accesorios",
+      "tipo": "Visera",
+      "forma": "visera",
+      "tallas": "unica",
+      "precio": 34900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Rojo"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-09-22",
+      "descripcion": "Banda que absorbe el sudor y visera curva."
+    },
+    {
+      "id": "bandera-schuster",
+      "nombre": "Bandera",
+      "seccion": "accesorios",
+      "tipo": "Bandera",
+      "forma": "bandera",
+      "tallas": "unica",
+      "precio": 49900,
+      "colores": [
+        "Rojo",
+        "Negro",
+        "Blanco"
+      ],
+      "estampado": "logo",
+      "nuevo": false,
+      "llegada": "2026-08-28",
+      "descripcion": "Para tu negocio, tu equipo o tu evento, con el diseño que quieras."
+    },
+    {
+      "id": "gorro-cocina",
+      "nombre": "Gorro de Cocina",
+      "seccion": "accesorios",
+      "tipo": "Gorro de cocina",
+      "forma": "gorro-cocina",
+      "tallas": "unica",
+      "precio": 29900,
+      "colores": [
+        "Blanco",
+        "Negro"
+      ],
+      "estampado": "palabra",
+      "nuevo": false,
+      "llegada": "2026-08-20",
+      "descripcion": "El gorro clásico de chef con la marca en la banda."
+    },
+    {
+      "id": "mug-ceramica",
+      "nombre": "Mug de Cerámica",
+      "seccion": "accesorios",
+      "tipo": "Mug",
+      "forma": "mug",
+      "tallas": "unica",
+      "precio": 24900,
+      "colores": [
+        "Blanco",
+        "Negro",
+        "Rojo"
+      ],
+      "estampado": "logo",
+      "nuevo": false,
+      "llegada": "2026-10-14",
+      "descripcion": "Cerámica de 11 onzas. Lo personalizamos con tu foto, tu frase o tu logo."
+    },
+    {
+      "id": "panoleta-leon",
+      "nombre": "Pañoleta",
+      "seccion": "accesorios",
+      "tipo": "Pañoleta",
+      "forma": "panoleta",
+      "tallas": "unica",
+      "precio": 19900,
+      "colores": [
+        "Rojo",
+        "Negro",
+        "Azul oscuro"
+      ],
+      "estampado": "leon",
+      "nuevo": false,
+      "llegada": "2026-09-01",
+      "descripcion": "Para el cuello, la cabeza o la muñeca. Algodón suave."
+    },
+    {
+      "id": "cartuchera-schuster",
+      "nombre": "Cartuchera",
+      "seccion": "accesorios",
+      "tipo": "Cartuchera",
+      "forma": "cartuchera",
+      "tallas": "unica",
+      "precio": 22900,
+      "colores": [
+        "Negro",
+        "Rojo",
+        "Arena"
+      ],
+      "estampado": "palabra",
+      "nuevo": false,
+      "llegada": "2026-08-18",
+      "descripcion": "Con cremallera, para lápices, cables o maquillaje."
+    },
+    {
+      "id": "cinta-portacarnet",
+      "nombre": "Cinta Portacarné",
+      "seccion": "accesorios",
+      "tipo": "Cinta",
+      "forma": "cinta",
+      "tallas": "unica",
+      "precio": 9900,
+      "colores": [
+        "Negro",
+        "Rojo",
+        "Azul oscuro"
+      ],
+      "estampado": "palabra",
+      "nuevo": false,
+      "llegada": "2026-08-15",
+      "descripcion": "Cinta para el carné con gancho metálico. La hacemos con el nombre de tu empresa."
+    },
+    {
+      "id": "manilla-silicona",
+      "nombre": "Manilla de Silicona",
+      "seccion": "accesorios",
+      "tipo": "Manilla",
+      "forma": "manilla",
+      "tallas": "unica",
+      "precio": 7900,
+      "colores": [
+        "Negro",
+        "Rojo",
+        "Blanco"
+      ],
+      "estampado": "palabra",
+      "nuevo": false,
+      "llegada": "2026-08-12",
+      "descripcion": "Silicona flexible con la marca en relieve. Por docenas para eventos."
+    }
+  ]
+}

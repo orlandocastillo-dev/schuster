@@ -1,0 +1,415 @@
+import { useRef, useState, type PointerEvent as EventoPuntero } from "react";
+import { Link } from "react-router-dom";
+import { color as colorDe, grupos, personaliza, precio, tienda } from "../datos";
+import { bolsa, type Diseno } from "../estado/bolsa";
+import { avisar } from "../estado/aviso";
+import { GuiaTallas } from "../componentes/GuiaTallas";
+import { Icono } from "../componentes/Iconos";
+import { Modal } from "../componentes/Modal";
+import { useTitulo, volarABolsa } from "../lib/util";
+import { CapaDiseno } from "../prendas/CapaDiseno";
+import { CapaPrenda } from "../prendas/Prenda";
+import { FORMAS } from "../prendas/formas";
+
+const FUENTES = [
+  { nombre: "Bloque", familia: "'Archivo', sans-serif" },
+  { nombre: "Universitaria", familia: "'Graduate', serif" },
+  { nombre: "Elegante", familia: "'Playfair Display', serif" },
+  { nombre: "Manuscrita", familia: "'Caveat', cursive" },
+];
+
+type Lado = "frente" | "espalda";
+const AREA = { x: 130, y: 120, w: 140, h: 200 };
+
+/** Reduce el logo a 600 px como máximo, para que quepa en la bolsa sin pesar. */
+function leerLogo(archivo: File): Promise<string> {
+  return new Promise((ok, mal) => {
+    const lector = new FileReader();
+    lector.onerror = () => mal(new Error("lectura"));
+    lector.onload = () => {
+      const img = new Image();
+      img.onerror = () => mal(new Error("imagen"));
+      img.onload = () => {
+        const escala = Math.min(1, 600 / Math.max(img.width, img.height));
+        const lienzo = document.createElement("canvas");
+        lienzo.width = Math.max(1, Math.round(img.width * escala));
+        lienzo.height = Math.max(1, Math.round(img.height * escala));
+        lienzo.getContext("2d")!.drawImage(img, 0, 0, lienzo.width, lienzo.height);
+        ok(lienzo.toDataURL("image/png"));
+      };
+      img.src = lector.result as string;
+    };
+    lector.readAsDataURL(archivo);
+  });
+}
+
+export default function Personaliza() {
+  useTitulo("Personaliza tu prenda", "Diseña tu camiseta, buzo, gorra, totebag o mug con tu texto o tu logo y pídela por WhatsApp desde una unidad.");
+  const [prendaId, setPrendaId] = useState(personaliza.prendas[0].id);
+  const prenda = personaliza.prendas.find((x) => x.id === prendaId)!;
+  const forma = FORMAS[prenda.forma];
+  const [colorNombre, setColorNombre] = useState(prenda.colores[0]);
+  const c = colorDe(colorNombre);
+  const [lado, setLado] = useState<Lado>("frente");
+  const [disenos, setDisenos] = useState<Partial<Record<Lado, Diseno>>>({});
+  const [talla, setTalla] = useState<string | null>(null);
+  const [cantidad, setCantidad] = useState(1);
+  const [error, setError] = useState("");
+  const [guia, setGuia] = useState(false);
+  const [arrastrando, setArrastrando] = useState(false);
+  const lienzo = useRef<SVGSVGElement>(null);
+  const vista = useRef<HTMLDivElement>(null);
+
+  const area = (lado === "espalda" ? forma.areaEspalda : forma.area) ?? AREA;
+  const bajar = forma.bajar ?? 0;
+  const actual = disenos[lado];
+  const modo = actual?.tipo ?? "nada";
+  const unica = prenda.tallas === "unica";
+  const ladosUsados = (Object.keys(disenos) as Lado[]).filter((l) => disenos[l]);
+  const valor = prenda.precio + personaliza.precioPorLado * ladosUsados.length;
+
+  const centro = () => ({ x: area.x + area.w / 2, y: area.y + bajar + area.h * 0.36 });
+
+  function cambiar(cambios: Partial<Diseno>) {
+    setDisenos((d) => ({ ...d, [lado]: { ...(d[lado] as Diseno), ...cambios } }));
+    setError("");
+  }
+
+  function escogerModo(m: "texto" | "logo" | "nada") {
+    if (m === "nada") {
+      setDisenos((d) => ({ ...d, [lado]: undefined }));
+      return;
+    }
+    if (m === actual?.tipo) return;
+    const base = { ...centro() };
+    setDisenos((d) => ({
+      ...d,
+      [lado]:
+        m === "texto"
+          ? { tipo: "texto", texto: "", fuente: FUENTES[0].familia, fuenteNombre: FUENTES[0].nombre, tinta: c.hex === "#141414" ? "#ffffff" : "#111111", tintaNombre: c.hex === "#141414" ? "Blanco" : "Negro", tamano: 28, ...base }
+          : { tipo: "logo", tamano: Math.round(area.w * 0.6), ...base },
+    }));
+  }
+
+  function cambiarPrenda(id: string) {
+    const nueva = personaliza.prendas.find((x) => x.id === id)!;
+    setPrendaId(id);
+    setColorNombre(nueva.colores.includes(colorNombre) ? colorNombre : nueva.colores[0]);
+    setTalla(nueva.tallas === prenda.tallas ? talla : null);
+    setLado("frente");
+    // El diseño se recoloca en el centro del área de la nueva prenda
+    const f = FORMAS[nueva.forma];
+    setDisenos((d) => {
+      const r: Partial<Record<Lado, Diseno>> = {};
+      for (const l of ["frente", "espalda"] as Lado[]) {
+        if (!d[l] || !nueva.lados.includes(l)) continue;
+        const a = (l === "espalda" ? f.areaEspalda : f.area) ?? AREA;
+        r[l] = { ...d[l]!, x: a.x + a.w / 2, y: a.y + (f.bajar ?? 0) + a.h * 0.36, tamano: d[l]!.tipo === "logo" ? Math.min(d[l]!.tamano, a.w) : d[l]!.tamano };
+      }
+      return r;
+    });
+  }
+
+  async function subir(archivo?: File) {
+    if (!archivo) return;
+    if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(archivo.type)) return setError("Sube tu logo en PNG, JPG, WEBP o SVG.");
+    if (archivo.size > 8 * 1024 * 1024) return setError("El archivo pesa más de 8 MB. Prueba con uno más liviano.");
+    try {
+      cambiar({ imagen: await leerLogo(archivo) });
+    } catch {
+      setError("No pudimos leer esa imagen. Prueba con otro archivo.");
+    }
+  }
+
+  // Convierte la posición del dedo o el mouse a coordenadas del dibujo
+  function aLienzo(e: EventoPuntero) {
+    const svg = lienzo.current!;
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    return pt.matrixTransform(svg.getScreenCTM()!.inverse());
+  }
+
+  const limitar = (x: number, y: number) => ({
+    x: Math.round(Math.max(area.x, Math.min(area.x + area.w, x))),
+    y: Math.round(Math.max(area.y + bajar, Math.min(area.y + bajar + area.h, y))),
+  });
+
+  function mover(e: EventoPuntero<SVGRectElement>) {
+    if (!arrastrando || !actual) return;
+    const p = aLienzo(e);
+    cambiar(limitar(p.x, p.y));
+  }
+
+  function tecla(e: React.KeyboardEvent) {
+    if (!actual) return;
+    const paso = e.shiftKey ? 10 : 2;
+    const d = { ArrowLeft: [-paso, 0], ArrowRight: [paso, 0], ArrowUp: [0, -paso], ArrowDown: [0, paso] }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    cambiar(limitar(actual.x + d[0], actual.y + d[1]));
+  }
+
+  function agregar() {
+    if (!ladosUsados.length) return setError("Agrega un texto o tu logo antes de pedir.");
+    const vacio = ladosUsados.find((l) => (disenos[l]!.tipo === "texto" ? !disenos[l]!.texto?.trim() : !disenos[l]!.imagen));
+    if (vacio) {
+      setLado(vacio);
+      return setError(`Falta el ${disenos[vacio]!.tipo === "texto" ? "texto" : "logo"} ${vacio === "frente" ? "del frente" : "de la espalda"}.`);
+    }
+    if (!unica && !talla) return setError("Escoge una talla.");
+    const limpio: Partial<Record<Lado, Diseno>> = {};
+    ladosUsados.forEach((l) => (limpio[l] = disenos[l]));
+    bolsa.agregar({
+      id: `personalizado-${prenda.id}`,
+      nombre: `${prenda.nombre} personalizada`,
+      forma: prenda.forma,
+      estampado: "ninguno",
+      color: { nombre: c.nombre, hex: c.hex },
+      talla: talla ?? "Única",
+      cantidad,
+      precio: valor,
+      diseno: limpio,
+    });
+    volarABolsa(vista.current);
+    avisar(`Tu ${prenda.nombre.toLowerCase()} personalizada quedó en la bolsa`);
+  }
+
+  return (
+    <div className="personaliza">
+      <header className="personaliza__cabeza">
+        <p className="sobretitulo">Desde una sola unidad</p>
+        <h1 className="titular titular--seccion">Personaliza</h1>
+        <p className="seccion__frase">Escoge la prenda, ponle tu texto o tu logo y mira cómo queda. Nosotros la estampamos.</p>
+      </header>
+
+      <div className="personaliza__cuerpo">
+        <div className="personaliza__vista">
+          <div className="personaliza__lienzo" ref={vista}>
+            <div className="personaliza__giro" key={lado + prendaId}>
+              <svg ref={lienzo} viewBox="0 0 400 500" role="img" aria-label={`Vista previa: ${prenda.nombre} ${c.nombre.toLowerCase()}, ${lado}`}>
+                <CapaPrenda
+                  forma={prenda.forma}
+                  color={c.hex}
+                  estampado="ninguno"
+                  lado={lado}
+                  extra={
+                    <>
+                      <CapaDiseno diseno={actual} />
+                      {actual && (
+                        <rect
+                          x={area.x}
+                          y={area.y + bajar}
+                          width={area.w}
+                          height={area.h}
+                          className={`personaliza__area${arrastrando ? " personaliza__area--activa" : ""}`}
+                          onPointerDown={(e) => {
+                            e.currentTarget.setPointerCapture(e.pointerId);
+                            setArrastrando(true);
+                            cambiar(limitar(aLienzo(e).x, aLienzo(e).y));
+                          }}
+                          onPointerMove={mover}
+                          onPointerUp={() => setArrastrando(false)}
+                          onPointerCancel={() => setArrastrando(false)}
+                        />
+                      )}
+                    </>
+                  }
+                />
+              </svg>
+            </div>
+          </div>
+          {prenda.lados.length > 1 && (
+            <div className="lados" role="group" aria-label="Lado de la prenda">
+              {(prenda.lados as Lado[]).map((l) => (
+                <button key={l} type="button" aria-pressed={l === lado} onClick={() => setLado(l)}>
+                  <Icono nombre="girar" /> {l === "frente" ? "Frente" : "Espalda"}
+                  {disenos[l] && <span className="punto" aria-label="con diseño" />}
+                </button>
+              ))}
+            </div>
+          )}
+          {actual && (
+            <p className="personaliza__ayuda">
+              Arrastra el diseño sobre la prenda para moverlo. Con el teclado, enfoca el diseño y usa las flechas.
+            </p>
+          )}
+        </div>
+
+        <div className="personaliza__panel">
+          <section className="paso">
+            <h2 className="paso__titulo">
+              <span>1</span> Prenda
+            </h2>
+            <div className="prendas-opcion" role="radiogroup" aria-label="Prenda">
+              {personaliza.prendas.map((x) => (
+                <button key={x.id} type="button" role="radio" aria-checked={x.id === prendaId} onClick={() => cambiarPrenda(x.id)} className="prenda-opcion">
+                  <svg viewBox="0 0 400 500" aria-hidden="true">
+                    <CapaPrenda forma={x.forma} color={colorDe(x.colores[0]).hex} estampado="ninguno" sombra={false} />
+                  </svg>
+                  <span>{x.nombre}</span>
+                  <small>Desde {precio(x.precio)}</small>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="paso">
+            <h2 className="paso__titulo">
+              <span>2</span> Color: <strong>{c.nombre}</strong>
+            </h2>
+            <div className="colores" role="radiogroup" aria-label="Color de la prenda">
+              {prenda.colores.map((n) => (
+                <button key={n} type="button" role="radio" aria-checked={n === colorNombre} aria-label={n} className="muestra-color muestra-color--grande" style={{ ["--c" as string]: colorDe(n).hex }} onClick={() => setColorNombre(n)} />
+              ))}
+            </div>
+          </section>
+
+          <section className="paso">
+            <h2 className="paso__titulo">
+              <span>3</span> Diseño {prenda.lados.length > 1 && <small>({lado === "frente" ? "frente" : "espalda"})</small>}
+            </h2>
+            <div className="pestanas" role="tablist" aria-label="Tipo de diseño">
+              {(["texto", "logo", "nada"] as const).map((m) => (
+                <button key={m} type="button" role="tab" aria-selected={modo === m} onClick={() => escogerModo(m)}>
+                  {m === "texto" ? "Texto" : m === "logo" ? "Tu logo" : "Sin diseño"}
+                </button>
+              ))}
+            </div>
+
+            {actual?.tipo === "texto" && (
+              <div className="paso__cuerpo" key={"t" + lado}>
+                <label className="campo">
+                  <span>Tu texto</span>
+                  <input type="text" maxLength={22} value={actual.texto ?? ""} placeholder="Tu nombre, tu frase o tu número" onChange={(e) => cambiar({ texto: e.target.value })} onKeyDown={(e) => e.stopPropagation()} autoFocus />
+                </label>
+                <div className="campo">
+                  <span id="titulo-letra">Letra</span>
+                  <div className="fuentes" role="radiogroup" aria-labelledby="titulo-letra">
+                    {FUENTES.map((f) => (
+                      <button key={f.nombre} type="button" role="radio" aria-checked={actual.fuente === f.familia} onClick={() => cambiar({ fuente: f.familia, fuenteNombre: f.nombre })} style={{ fontFamily: f.familia }} className={f.nombre === "Bloque" ? "fuente--bloque" : undefined}>
+                        {f.nombre}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="campo">
+                  <span id="titulo-tinta">
+                    Tinta: <strong>{actual.tintaNombre}</strong>
+                  </span>
+                  <div className="colores" role="radiogroup" aria-labelledby="titulo-tinta">
+                    {personaliza.tintas.map((t) => (
+                      <button key={t.nombre} type="button" role="radio" aria-checked={actual.tinta === t.hex} aria-label={t.nombre} className="muestra-color" style={{ ["--c" as string]: t.hex }} onClick={() => cambiar({ tinta: t.hex, tintaNombre: t.nombre })} />
+                    ))}
+                  </div>
+                </div>
+                <label className="campo">
+                  <span>Tamaño</span>
+                  <input type="range" min={12} max={64} value={actual.tamano} onChange={(e) => cambiar({ tamano: Number(e.target.value) })} />
+                </label>
+              </div>
+            )}
+
+            {actual?.tipo === "logo" && (
+              <div className="paso__cuerpo" key={"l" + lado}>
+                <label className="subir">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="sr-only" onChange={(e) => subir(e.target.files?.[0])} />
+                  <Icono nombre="subir" />
+                  <span>{actual.imagen ? "Cambiar el logo" : "Sube tu logo"}</span>
+                  <small>PNG con fondo transparente queda mejor. Máximo 8 MB.</small>
+                </label>
+                {actual.imagen && (
+                  <label className="campo">
+                    <span>Tamaño</span>
+                    <input type="range" min={30} max={Math.round(area.w)} value={actual.tamano} onChange={(e) => cambiar({ tamano: Number(e.target.value) })} />
+                  </label>
+                )}
+              </div>
+            )}
+
+            {actual && (
+              <div className="posicion">
+                <button
+                  type="button"
+                  className="posicion__mover"
+                  onKeyDown={tecla}
+                  aria-label={`Mover el diseño. Posición horizontal ${Math.round(actual.x)}, vertical ${Math.round(actual.y)}. Usa las flechas.`}
+                >
+                  <Icono nombre="centrar" /> Mover con flechas
+                </button>
+                <button type="button" className="enlace-sutil" onClick={() => cambiar(centro())}>
+                  Centrar
+                </button>
+              </div>
+            )}
+          </section>
+
+          <section className="paso">
+            <h2 className="paso__titulo">
+              <span>4</span> {unica ? "Cantidad" : "Talla y cantidad"}
+            </h2>
+            {!unica && (
+              <>
+                <div className="opcion__fila">
+                  <span>{talla ? <>Talla: <strong>{talla}</strong></> : "Escoge tu talla"}</span>
+                  <button type="button" className="enlace-sutil" onClick={() => setGuia(true)}>
+                    <Icono nombre="regla" /> Guía de tallas
+                  </button>
+                </div>
+                <div className="tallas" role="radiogroup" aria-label="Talla">
+                  {grupos[prenda.tallas].tallas.map((t) => (
+                    <button key={t} type="button" role="radio" aria-checked={t === talla} className="talla" onClick={() => setTalla(t)}>
+                      <span>{t}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+            <div className="cantidad" role="group" aria-label="Cantidad">
+              <button type="button" onClick={() => setCantidad((n) => Math.max(1, n - 1))} aria-label="Quitar una unidad" disabled={cantidad <= 1}>
+                <Icono nombre="menos" />
+              </button>
+              <span aria-live="polite">{cantidad}</span>
+              <button type="button" onClick={() => setCantidad((n) => Math.min(99, n + 1))} aria-label="Agregar una unidad">
+                <Icono nombre="mas" />
+              </button>
+            </div>
+          </section>
+
+          <div className="resumen">
+            <dl>
+              <div>
+                <dt>{prenda.nombre}</dt>
+                <dd>{precio(prenda.precio)}</dd>
+              </div>
+              <div>
+                <dt>Estampado ({ladosUsados.length} {ladosUsados.length === 1 ? "lado" : "lados"})</dt>
+                <dd>{precio(personaliza.precioPorLado * ladosUsados.length)}</dd>
+              </div>
+              <div className="resumen__total">
+                <dt>Total{cantidad > 1 ? ` (${cantidad} unidades)` : ""}</dt>
+                <dd>{precio(valor * cantidad)}</dd>
+              </div>
+            </dl>
+            {error && (
+              <p className="error" role="alert">
+                {error}
+              </p>
+            )}
+            <button type="button" className="boton boton--ancho" onClick={agregar}>
+              <Icono nombre="bolsa" />
+              <span>Agregar a la bolsa</span>
+            </button>
+            <p className="nota-muestra">
+              {tienda.muestraDeDiseno ? "Muestra de diseño: precios de ejemplo. " : ""}Si subes un logo, te pedimos el archivo original por WhatsApp para estamparlo con la mejor calidad. <Link to="/guia-de-tallas">Ver guía de tallas</Link>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <Modal abierto={guia} cerrar={() => setGuia(false)} titulo="Guía de tallas" ancho>
+        <GuiaTallas inicial={prenda.tallas} />
+      </Modal>
+    </div>
+  );
+}

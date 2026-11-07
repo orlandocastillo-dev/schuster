@@ -1,0 +1,22 @@
+{
+  "precioPorLado": 15000,
+  "prendas": [
+    { "id": "camiseta", "nombre": "Camiseta", "forma": "camiseta", "tallas": "adulto", "precio": 39900, "colores": ["Blanco", "Negro", "Rojo", "Gris jaspe", "Azul oscuro", "Arena"], "lados": ["frente", "espalda"] },
+    { "id": "camiseta-dama", "nombre": "Camiseta dama", "forma": "camiseta-dama", "tallas": "dama", "precio": 39900, "colores": ["Blanco", "Negro", "Rosa palo", "Lila", "Rojo"], "lados": ["frente", "espalda"] },
+    { "id": "camiseta-nino", "nombre": "Camiseta niño", "forma": "camiseta", "tallas": "infantil", "precio": 29900, "colores": ["Blanco", "Rojo", "Azul cielo", "Amarillo"], "lados": ["frente", "espalda"] },
+    { "id": "polo", "nombre": "Polo", "forma": "polo", "tallas": "adulto", "precio": 54900, "colores": ["Blanco", "Negro", "Azul oscuro", "Rojo"], "lados": ["frente", "espalda"] },
+    { "id": "buzo", "nombre": "Buzo", "forma": "buzo", "tallas": "adulto", "precio": 99900, "colores": ["Negro", "Gris jaspe", "Arena", "Azul oscuro"], "lados": ["frente", "espalda"] },
+    { "id": "gorra", "nombre": "Gorra", "forma": "gorra", "tallas": "unica", "precio": 34900, "colores": ["Negro", "Blanco", "Rojo", "Azul oscuro"], "lados": ["frente"] },
+    { "id": "totebag", "nombre": "Totebag", "forma": "totebag", "tallas": "unica", "precio": 24900, "colores": ["Arena", "Negro", "Blanco"], "lados": ["frente", "espalda"] },
+    { "id": "mug", "nombre": "Mug", "forma": "mug", "tallas": "unica", "precio": 19900, "colores": ["Blanco", "Negro", "Rojo"], "lados": ["frente"] }
+  ],
+  "tintas": [
+    { "nombre": "Blanco", "hex": "#ffffff" },
+    { "nombre": "Negro", "hex": "#111111" },
+    { "nombre": "Rojo", "hex": "#c8221a" },
+    { "nombre": "Dorado", "hex": "#c9a227" },
+    { "nombre": "Plateado", "hex": "#c4c8cc" },
+    { "nombre": "Azul rey", "hex": "#1f4fa3" },
+    { "nombre": "Amarillo", "hex": "#f1c232" }
+  ]
+}

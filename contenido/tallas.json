@@ -1,0 +1,118 @@
+{
+  "adulto": {
+    "nombre": "Adulto",
+    "tallas": ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+    "medidas": {
+      "columnas": ["Pecho (cm)", "Largo (cm)"],
+      "filas": {
+        "XS": [88, 66],
+        "S": [94, 69],
+        "M": [100, 72],
+        "L": [106, 74],
+        "XL": [112, 76],
+        "2XL": [118, 78],
+        "3XL": [124, 80],
+        "4XL": [130, 82]
+      }
+    }
+  },
+  "dama": {
+    "nombre": "Dama",
+    "tallas": ["XS", "S", "M", "L", "XL", "2XL"],
+    "medidas": {
+      "columnas": ["Busto (cm)", "Cintura (cm)", "Largo (cm)"],
+      "filas": {
+        "XS": [80, 62, 60],
+        "S": [86, 68, 62],
+        "M": [92, 74, 64],
+        "L": [98, 80, 66],
+        "XL": [104, 86, 68],
+        "2XL": [110, 92, 70]
+      }
+    }
+  },
+  "infantil": {
+    "nombre": "Infantil",
+    "tallas": ["2T", "3T", "4T", "5T", "2", "4", "6", "8", "10", "12", "14", "16"],
+    "medidas": {
+      "columnas": ["Edad aprox.", "Pecho (cm)", "Largo (cm)"],
+      "filas": {
+        "2T": ["2 años", 54, 38],
+        "3T": ["3 años", 56, 40],
+        "4T": ["4 años", 58, 42],
+        "5T": ["5 años", 60, 44],
+        "2": ["2 años", 54, 38],
+        "4": ["4 años", 58, 42],
+        "6": ["6 años", 64, 46],
+        "8": ["8 años", 68, 50],
+        "10": ["10 años", 72, 54],
+        "12": ["12 años", 78, 58],
+        "14": ["14 años", 84, 62],
+        "16": ["16 años", 90, 66]
+      }
+    }
+  },
+  "nino": {
+    "nombre": "Niño",
+    "tallas": ["4", "6", "8", "10", "12", "14", "16"],
+    "medidas": {
+      "columnas": ["Edad aprox.", "Pecho (cm)", "Largo (cm)"],
+      "filas": {
+        "4": ["4 años", 58, 42],
+        "6": ["6 años", 64, 46],
+        "8": ["8 años", 68, 50],
+        "10": ["10 años", 72, 54],
+        "12": ["12 años", 78, 58],
+        "14": ["14 años", 84, 62],
+        "16": ["16 años", 90, 66]
+      }
+    }
+  },
+  "pantaloneta": {
+    "nombre": "Pantaloneta",
+    "tallas": ["S", "M", "L", "XL", "2XL"],
+    "medidas": {
+      "columnas": ["Cintura (cm)", "Largo (cm)"],
+      "filas": {
+        "S": [72, 44],
+        "M": [78, 46],
+        "L": [84, 48],
+        "XL": [90, 50],
+        "2XL": [96, 52]
+      }
+    }
+  },
+  "pijama": {
+    "nombre": "Pijamas y sudaderas",
+    "tallas": ["S", "M", "L", "XL"],
+    "medidas": {
+      "columnas": ["Cintura (cm)", "Largo del pantalón (cm)"],
+      "filas": {
+        "S": [72, 98],
+        "M": [78, 100],
+        "L": [84, 102],
+        "XL": [90, 104]
+      }
+    }
+  },
+  "chaqueta": {
+    "nombre": "Chaquetas",
+    "tallas": ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
+    "medidas": {
+      "columnas": ["Pecho (cm)", "Largo (cm)", "Manga (cm)"],
+      "filas": {
+        "XS": [94, 66, 60],
+        "S": [100, 68, 61],
+        "M": [106, 70, 62],
+        "L": [112, 72, 63],
+        "XL": [118, 74, 64],
+        "2XL": [124, 76, 65],
+        "3XL": [130, 78, 66]
+      }
+    }
+  },
+  "unica": {
+    "nombre": "Accesorios",
+    "tallas": ["Única"]
+  }
+}
