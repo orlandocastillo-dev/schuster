@@ -593,6 +593,48 @@ html[data-entrada="muestra"] body {
 .encabezado__der {
   justify-content: flex-end;
 }
+/* Botón visible para escribir: los pedidos grandes llegan por correo */
+.contacto-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  margin-right: 6px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.contacto-boton .icono {
+  width: 17px;
+  height: 17px;
+}
+.contacto-boton:hover {
+  background: var(--rojo);
+  border-color: var(--rojo);
+  color: #fff;
+}
+@media (max-width: 639px) {
+  /* En celular solo el sobre, para no apretar el encabezado */
+  .contacto-boton {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin-right: 0;
+    justify-content: center;
+    border: 0;
+  }
+  .contacto-boton span {
+    display: none;
+  }
+}
 .encabezado__logo {
   display: block;
   color: inherit;

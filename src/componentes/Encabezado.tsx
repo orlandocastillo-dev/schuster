@@ -100,6 +100,13 @@ function MenuMovil({ abierto, cerrar }: { abierto: boolean; cerrar: () => void }
           </li>
         </ul>
         <ul className="menu-movil__otros" style={{ ["--i" as string]: 5 }}>
+          {tiene("contacto") && (
+            <li>
+              <Link to="/contacto" onClick={cerrar}>
+                Contáctanos
+              </Link>
+            </li>
+          )}
           <li>
             <Link to="/tienda" onClick={cerrar}>
               Toda la tienda
@@ -207,6 +214,12 @@ export function Encabezado() {
           </Link>
 
           <div className="encabezado__der">
+            {tiene("contacto") && (
+              <Link to="/contacto" className="contacto-boton" viewTransition={conTransicion} aria-label="Contáctanos">
+                <Icono nombre="correo" />
+                <span>Contáctanos</span>
+              </Link>
+            )}
             <a
               className="boton-icono solo-escritorio"
               href={`https://instagram.com/${tienda.instagram}`}
