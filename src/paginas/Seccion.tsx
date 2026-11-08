@@ -4,6 +4,7 @@ import { Volver } from "../componentes/Volver";
 import { color as colorDe, porNovedad, productos, SECCIONES, tallasDe, type Producto, type Seccion as Id } from "../datos";
 import { Icono } from "../componentes/Iconos";
 import { TarjetaProducto } from "../componentes/TarjetaProducto";
+import { tiene } from "../avance";
 import { useAtraparFoco, useBloquearScroll, useTitulo } from "../lib/util";
 
 const PRECIOS = [
@@ -126,7 +127,13 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
           {PRECIOS.map((x) => (
             <li key={x.id}>
               <label className="casilla casilla--radio">
-                <input type="radio" name="precio" checked={sel.precio === x.id} onChange={() => cambiar("precio", x.id, false)} onClick={() => sel.precio === x.id && cambiar("precio", "", false)} />
+                <input
+                  type="radio"
+                  name="precio"
+                  checked={sel.precio === x.id}
+                  onChange={() => cambiar("precio", x.id, false)}
+                  onClick={() => sel.precio === x.id && cambiar("precio", "", false)}
+                />
                 <span>{x.nombre}</span>
               </label>
             </li>
@@ -164,9 +171,11 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
       </header>
 
       <div className="seccion__barra">
-        <button type="button" className="boton-filtros" onClick={() => setCajon(true)} aria-expanded={cajon} aria-controls="cajon-filtros">
-          <Icono nombre="filtro" /> Filtrar {activos.length > 0 && <span className="contador">{activos.length}</span>}
-        </button>
+        {tiene("filtros") && (
+          <button type="button" className="boton-filtros" onClick={() => setCajon(true)} aria-expanded={cajon} aria-controls="cajon-filtros">
+            <Icono nombre="filtro" /> Filtrar {activos.length > 0 && <span className="contador">{activos.length}</span>}
+          </button>
+        )}
         <p className="seccion__cuenta" aria-live="polite">
           {filtrados.length} {filtrados.length === 1 ? "producto" : "productos"}
         </p>
@@ -186,7 +195,13 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
       {activos.length > 0 && (
         <div className="activos">
           {activos.map((a) => (
-            <button key={a.clave + a.v} type="button" className="activo" onClick={() => cambiar(a.clave, a.v, a.clave !== "precio")} aria-label={`Quitar filtro ${a.nombre}`}>
+            <button
+              key={a.clave + a.v}
+              type="button"
+              className="activo"
+              onClick={() => cambiar(a.clave, a.v, a.clave !== "precio")}
+              aria-label={`Quitar filtro ${a.nombre}`}
+            >
               {a.nombre} <Icono nombre="cerrar" />
             </button>
           ))}
@@ -196,10 +211,12 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
         </div>
       )}
 
-      <div className="seccion__cuerpo">
-        <aside className="seccion__filtros" aria-label="Filtros">
-          {filtros}
-        </aside>
+      <div className={`seccion__cuerpo${tiene("filtros") ? "" : " seccion__cuerpo--sin-filtros"}`}>
+        {tiene("filtros") && (
+          <aside className="seccion__filtros" aria-label="Filtros">
+            {filtros}
+          </aside>
+        )}
 
         <div className="seccion__lista">
           <h2 className="sr-only">Productos</h2>
@@ -220,8 +237,21 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
         </div>
       </div>
 
-      <div className={`cajon-fondo cajon-fondo--izq${cajon ? " cajon-fondo--abierto" : ""}`} onClick={() => setCajon(false)} inert={!cajon} aria-hidden={!cajon}>
-        <div className="cajon cajon--izq" id="cajon-filtros" ref={caja} role="dialog" aria-modal="true" aria-label="Filtros" onClick={(e) => e.stopPropagation()}>
+      <div
+        className={`cajon-fondo cajon-fondo--izq${cajon ? " cajon-fondo--abierto" : ""}`}
+        onClick={() => setCajon(false)}
+        inert={!cajon}
+        aria-hidden={!cajon}
+      >
+        <div
+          className="cajon cajon--izq"
+          id="cajon-filtros"
+          ref={caja}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Filtros"
+          onClick={(e) => e.stopPropagation()}
+        >
           <header className="cajon__cabeza">
             <h2>Filtrar</h2>
             <button type="button" className="boton-icono" onClick={() => setCajon(false)} aria-label="Cerrar los filtros" data-foco-inicial>

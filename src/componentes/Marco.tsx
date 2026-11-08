@@ -8,6 +8,7 @@ import { CajonBolsa } from "./CajonBolsa";
 import { Encabezado } from "./Encabezado";
 import { Entrada } from "./Entrada";
 import { IconoWhatsApp } from "./Iconos";
+import { tiene } from "../avance";
 import { Pie } from "./Pie";
 
 function Aviso() {
@@ -37,15 +38,21 @@ export function Marco() {
         <Outlet />
       </main>
       <Pie />
-      <CajonBolsa />
+      {tiene("bolsa") && <CajonBolsa />}
       <aside aria-label="Contacto rápido">
-        <a className="wa-flotante" href={enlaceWhatsApp("Hola, Schuster. Quiero más información.")} target="_blank" rel="noreferrer" aria-label="Escríbenos por WhatsApp">
+        <a
+          className="wa-flotante"
+          href={enlaceWhatsApp("Hola, Schuster. Quiero más información.")}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Escríbenos por WhatsApp"
+        >
           <IconoWhatsApp />
           <span className="wa-flotante__texto">Escríbenos</span>
         </a>
       </aside>
       <Aviso />
-      <AvisoCookies />
+      {tiene("cookies") && <AvisoCookies />}
       <ScrollRestoration />
     </>
   );

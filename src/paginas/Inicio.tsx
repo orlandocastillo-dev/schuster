@@ -7,6 +7,7 @@ import { TarjetaProducto } from "../componentes/TarjetaProducto";
 import { useTitulo } from "../lib/util";
 import { Leon, Palabra } from "../marca/Logo";
 import { CapaDiseno } from "../prendas/CapaDiseno";
+import { tiene } from "../avance";
 import { CapaPrenda } from "../prendas/Prenda";
 
 function Portada() {
@@ -115,7 +116,14 @@ function Secciones() {
         {SECCIONES.map((s, i) => {
           const m = MOSAICO[s.id];
           return (
-            <Link key={s.id} to={`/${s.id}`} className={`mosaico__item${s.id === "hombre" ? " mosaico__item--oscuro" : ""}`} style={{ ["--fondo" as string]: m.fondo, ["--retraso" as string]: `${i * 90}ms` }} data-revelar viewTransition>
+            <Link
+              key={s.id}
+              to={`/${s.id}`}
+              className={`mosaico__item${s.id === "hombre" ? " mosaico__item--oscuro" : ""}`}
+              style={{ ["--fondo" as string]: m.fondo, ["--retraso" as string]: `${i * 90}ms` }}
+              data-revelar
+              viewTransition
+            >
               <svg className="mosaico__prenda" viewBox="0 0 400 500" aria-hidden="true">
                 <CapaPrenda forma={m.forma} color={color(m.color).hex} estampado={m.estampado} />
               </svg>
@@ -217,7 +225,18 @@ function FranjaPersonaliza() {
       </div>
       <div className="franja__demo" data-revelar aria-hidden="true">
         <svg viewBox="0 0 400 500">
-          <CapaPrenda forma="camiseta" color={color("Negro").hex} estampado="ninguno" extra={<g key={i} className="franja__diseno"><CapaDiseno diseno={{ tipo: "texto", texto: d.texto, fuente: d.fuente, tinta: d.tinta, x: 200, y: 190, tamano: d.texto.length > 9 ? 22 : 28 }} /></g>} />
+          <CapaPrenda
+            forma="camiseta"
+            color={color("Negro").hex}
+            estampado="ninguno"
+            extra={
+              <g key={i} className="franja__diseno">
+                <CapaDiseno
+                  diseno={{ tipo: "texto", texto: d.texto, fuente: d.fuente, tinta: d.tinta, x: 200, y: 190, tamano: d.texto.length > 9 ? 22 : 28 }}
+                />
+              </g>
+            }
+          />
         </svg>
       </div>
     </section>
@@ -293,7 +312,12 @@ function TiendaFisica() {
             <span>Ver en Google Maps</span>
           </a>
         ) : (
-          <iframe title={`Mapa: ${direccion}`} src={`https://maps.google.com/maps?q=${q}&z=16&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <iframe
+            title={`Mapa: ${direccion}`}
+            src={`https://maps.google.com/maps?q=${q}&z=16&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         )}
       </div>
       <div className="visita__info" data-revelar>
@@ -339,12 +363,14 @@ export default function Inicio() {
       <Secciones />
       <Carril titulo="Lo nuevo" enlace="/tienda?orden=nuevo" lista={nuevos} id="titulo-nuevo" />
       <Banda />
-      <FranjaPersonaliza />
+      {tiene("personaliza") && <FranjaPersonaliza />}
       <PorSeccion />
-      <ComoPedir />
-      <section className="bloque bloque--contacto" id="contacto" aria-label="Contacto">
-        <Contacto />
-      </section>
+      {tiene("comoPedir") && <ComoPedir />}
+      {tiene("contacto") && (
+        <section className="bloque bloque--contacto" id="contacto" aria-label="Contacto">
+          <Contacto />
+        </section>
+      )}
       <TiendaFisica />
     </>
   );

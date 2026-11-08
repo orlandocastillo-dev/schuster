@@ -5,6 +5,7 @@ import { bolsa } from "../estado/bolsa";
 import { avisar } from "../estado/aviso";
 import { volarABolsa } from "../lib/util";
 import { FotoProducto } from "./FotoProducto";
+import { tiene } from "../avance";
 import { Icono } from "./Iconos";
 
 export function TarjetaProducto({ producto: p, retraso = 0, prioridad }: { producto: Producto; retraso?: number; prioridad?: boolean }) {
@@ -16,7 +17,16 @@ export function TarjetaProducto({ producto: p, retraso = 0, prioridad }: { produ
   const enlace = `/producto/${p.id}${color !== p.colores[0] ? `?color=${c.slug}` : ""}`;
 
   function agregar(talla: string) {
-    bolsa.agregar({ id: p.id, nombre: p.nombre, forma: p.forma, estampado: p.estampado, color: { nombre: c.nombre, hex: c.hex }, talla, cantidad: 1, precio: p.precio });
+    bolsa.agregar({
+      id: p.id,
+      nombre: p.nombre,
+      forma: p.forma,
+      estampado: p.estampado,
+      color: { nombre: c.nombre, hex: c.hex },
+      talla,
+      cantidad: 1,
+      precio: p.precio,
+    });
     volarABolsa(foto.current);
     avisar(`${p.nombre} (${c.nombre.toLowerCase()}${unica ? "" : `, talla ${talla}`}) quedó en tu bolsa`);
     setTallas(false);
@@ -34,21 +44,23 @@ export function TarjetaProducto({ producto: p, retraso = 0, prioridad }: { produ
           </div>
         </Link>
         {p.nuevo && <span className="etiqueta">Nuevo</span>}
-        <div className={`tarjeta__rapido${tallas ? " tarjeta__rapido--abierto" : ""}`}>
-          {tallas ? (
-            <div className="tarjeta__tallas" role="group" aria-label={`Escoge la talla de ${p.nombre}`}>
-              {tallasDe(p).map((t) => (
-                <button key={t} type="button" onClick={() => agregar(t)}>
-                  {t}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <button type="button" className="tarjeta__agregar" onClick={() => (unica ? agregar("Única") : setTallas(true))}>
-              <Icono nombre="mas" /> Agregar rápido
-            </button>
-          )}
-        </div>
+        {tiene("bolsa") && (
+          <div className={`tarjeta__rapido${tallas ? " tarjeta__rapido--abierto" : ""}`}>
+            {tallas ? (
+              <div className="tarjeta__tallas" role="group" aria-label={`Escoge la talla de ${p.nombre}`}>
+                {tallasDe(p).map((t) => (
+                  <button key={t} type="button" onClick={() => agregar(t)}>
+                    {t}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button type="button" className="tarjeta__agregar" onClick={() => (unica ? agregar("Única") : setTallas(true))}>
+                <Icono nombre="mas" /> Agregar rápido
+              </button>
+            )}
+          </div>
+        )}
       </div>
       <div className="tarjeta__info">
         <h3 className="tarjeta__nombre">

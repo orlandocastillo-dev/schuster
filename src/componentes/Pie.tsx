@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { enlaceWhatsApp, SECCIONES, tienda } from "../datos";
 import { Logo, Palabra } from "../marca/Logo";
+import { tiene } from "../avance";
 import { IconoInstagram, IconoWhatsApp } from "./Iconos";
 
 const LEGALES = [
@@ -46,23 +47,29 @@ export function Pie() {
             <li>
               <Link to="/#como-pedir">Cómo pedir</Link>
             </li>
-            <li>
-              <Link to="/contacto">Contacto</Link>
-            </li>
+            {tiene("contacto") && (
+              <li>
+                <Link to="/contacto">Contacto</Link>
+              </li>
+            )}
             <li>
               <a href={enlaceWhatsApp("Hola, Schuster. Tengo una pregunta.")} target="_blank" rel="noreferrer">
                 Escríbenos por WhatsApp
               </a>
             </li>
           </ul>
-          <h2 className="pie__subtitulo">Legal</h2>
-          <ul>
-            {LEGALES.map(([a, nombre]) => (
-              <li key={a}>
-                <Link to={a}>{nombre}</Link>
-              </li>
-            ))}
-          </ul>
+          {tiene("legales") && (
+            <>
+              <h2 className="pie__subtitulo">Legal</h2>
+              <ul>
+                {LEGALES.map(([a, nombre]) => (
+                  <li key={a}>
+                    <Link to={a}>{nombre}</Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </nav>
         <div className="pie__col">
           <h2>Tienda física</h2>

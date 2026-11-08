@@ -3557,3 +3557,14 @@ body:has(.aviso-cookies) .wa-flotante {
     bottom: max(16px, env(safe-area-inset-bottom));
   }
 }
+
+.seccion__cuerpo--sin-filtros {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+.producto__pronto {
+  margin-top: 28px;
+  padding: 14px 16px;
+  background: var(--papel);
+  font-size: 14px;
+  font-weight: 600;
+}

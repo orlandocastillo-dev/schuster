@@ -32,6 +32,8 @@ Vite, React y TypeScript, con React Router. Es un sitio estático: no necesita s
 
 Las animaciones son de CSS y respetan la opción de reducir el movimiento del sistema.
 
+**Mostrar la tienda por partes.** `src/avance.ts` dice desde qué avance aparece cada función. Para compilar un avance: `VITE_AVANCE=1 npx vite build`. Sin ese valor sale la tienda completa.
+
 ```bash
 npm install
 npm run dev

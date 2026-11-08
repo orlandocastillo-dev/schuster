@@ -11,6 +11,7 @@ import { Icono, IconoWhatsApp } from "../componentes/Iconos";
 import { Modal } from "../componentes/Modal";
 import { TarjetaProducto } from "../componentes/TarjetaProducto";
 import { useTitulo, volarABolsa } from "../lib/util";
+import { tiene } from "../avance";
 import NoEncontrada from "./NoEncontrada";
 
 export default function Producto() {
@@ -60,7 +61,16 @@ function Ficha({ id }: { id: string }) {
       document.getElementById("tallas")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    bolsa.agregar({ id: p.id, nombre: p.nombre, forma: p.forma, estampado: p.estampado, color: { nombre: c.nombre, hex: c.hex }, talla, cantidad, precio: p.precio });
+    bolsa.agregar({
+      id: p.id,
+      nombre: p.nombre,
+      forma: p.forma,
+      estampado: p.estampado,
+      color: { nombre: c.nombre, hex: c.hex },
+      talla,
+      cantidad,
+      precio: p.precio,
+    });
     volarABolsa(foto.current);
     avisar(`${p.nombre} quedó en tu bolsa`);
   }
@@ -114,11 +124,18 @@ function Ficha({ id }: { id: string }) {
               <fieldset className="opcion" id="tallas">
                 <legend className="opcion__fila">
                   <span>
-                    Talla{talla && <>: <strong>{talla}</strong></>}
+                    Talla
+                    {talla && (
+                      <>
+                        : <strong>{talla}</strong>
+                      </>
+                    )}
                   </span>
-                  <button type="button" className="enlace-sutil" onClick={() => setGuia(true)}>
-                    <Icono nombre="regla" /> Guía de tallas
-                  </button>
+                  {tiene("guia") && (
+                    <button type="button" className="enlace-sutil" onClick={() => setGuia(true)}>
+                      <Icono nombre="regla" /> Guía de tallas
+                    </button>
+                  )}
                 </legend>
                 <div className={`tallas${falta ? " tallas--falta" : ""}`} key={falta}>
                   {tallasDe(p).map((t) => (
@@ -136,17 +153,23 @@ function Ficha({ id }: { id: string }) {
               </fieldset>
             )}
 
-            <div className="producto__comprar">
-              <Cantidad valor={cantidad} cambiar={setCantidad} />
-              <button ref={boton} type="button" className="boton boton--ancho" onClick={agregar}>
-                <Icono nombre="bolsa" />
-                <span>Agregar a la bolsa</span>
-              </button>
-            </div>
-            <a className="boton boton--wa-borde boton--ancho" href={enlaceWhatsApp(mensaje)} target="_blank" rel="noreferrer">
-              <IconoWhatsApp className="icono" />
-              <span>Pedir ya por WhatsApp</span>
-            </a>
+            {tiene("bolsa") ? (
+              <>
+                <div className="producto__comprar">
+                  <Cantidad valor={cantidad} cambiar={setCantidad} />
+                  <button ref={boton} type="button" className="boton boton--ancho" onClick={agregar}>
+                    <Icono nombre="bolsa" />
+                    <span>Agregar a la bolsa</span>
+                  </button>
+                </div>
+                <a className="boton boton--wa-borde boton--ancho" href={enlaceWhatsApp(mensaje)} target="_blank" rel="noreferrer">
+                  <IconoWhatsApp className="icono" />
+                  <span>Pedir ya por WhatsApp</span>
+                </a>
+              </>
+            ) : (
+              <p className="producto__pronto">Muy pronto: agregar a la bolsa y pedir por WhatsApp.</p>
+            )}
 
             <div className="acordeon">
               <details open>
@@ -161,7 +184,8 @@ function Ficha({ id }: { id: string }) {
                   Hazla tuya <Icono nombre="abajo" />
                 </summary>
                 <p>
-                  Le ponemos tu nombre, tu número o el logo de tu empresa, desde una sola unidad. <Link to="/personaliza">Diseñala en Personaliza</Link> o escríbenos.
+                  Le ponemos tu nombre, tu número o el logo de tu empresa, desde una sola unidad. <Link to="/personaliza">Diseñala en Personaliza</Link> o
+                  escríbenos.
                 </p>
               </details>
               <details>
@@ -169,7 +193,8 @@ function Ficha({ id }: { id: string }) {
                   Pedido y entrega <Icono nombre="abajo" />
                 </summary>
                 <p>
-                  Agrega lo que quieras a la bolsa y envía el pedido por WhatsApp. Allá acordamos el pago y la entrega, o puedes recogerlo en la tienda: {tienda.direccion}, {tienda.ciudad}.
+                  Agrega lo que quieras a la bolsa y envía el pedido por WhatsApp. Allá acordamos el pago y la entrega, o puedes recogerlo en la tienda:{" "}
+                  {tienda.direccion}, {tienda.ciudad}.
                 </p>
               </details>
               <details>
@@ -196,18 +221,20 @@ function Ficha({ id }: { id: string }) {
         </div>
       </section>
 
-      <div className={`barra-compra${barra ? " barra-compra--visible" : ""}`} aria-hidden={!barra} inert={!barra}>
-        <div>
-          <p className="barra-compra__nombre">{p.nombre}</p>
-          <p className="barra-compra__precio">
-            {precio(p.precio)}
-            {talla && !unica ? ` / Talla ${talla}` : ""}
-          </p>
+      {tiene("bolsa") && (
+        <div className={`barra-compra${barra ? " barra-compra--visible" : ""}`} aria-hidden={!barra} inert={!barra}>
+          <div>
+            <p className="barra-compra__nombre">{p.nombre}</p>
+            <p className="barra-compra__precio">
+              {precio(p.precio)}
+              {talla && !unica ? ` / Talla ${talla}` : ""}
+            </p>
+          </div>
+          <button type="button" className="boton" onClick={agregar}>
+            <span>Agregar</span>
+          </button>
         </div>
-        <button type="button" className="boton" onClick={agregar}>
-          <span>Agregar</span>
-        </button>
-      </div>
+      )}
 
       <Modal abierto={guia} cerrar={() => setGuia(false)} titulo="Guía de tallas" ancho>
         <GuiaTallas inicial={grupos[p.tallas] ? p.tallas : "adulto"} />

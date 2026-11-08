@@ -5,6 +5,8 @@ import { Marco } from "./componentes/Marco";
 import Inicio from "./paginas/Inicio";
 import Seccion from "./paginas/Seccion";
 import NoEncontrada from "./paginas/NoEncontrada";
+import Pronto from "./paginas/Pronto";
+import { tiene } from "./avance";
 import "./estilos.css";
 
 // Las páginas más pesadas se cargan solo cuando alguien entra a ellas
@@ -27,14 +29,14 @@ const rutas = [
       { path: "/infantil", element: <Seccion key="infantil" seccion="infantil" /> },
       { path: "/accesorios", element: <Seccion key="accesorios" seccion="accesorios" /> },
       { path: "/producto/:id", element: esperar(<Producto />) },
-      { path: "/personaliza", element: esperar(<Personaliza />) },
-      { path: "/guia-de-tallas", element: esperar(<GuiaTallasPagina />) },
-      { path: "/contacto", element: esperar(<ContactoPagina />) },
-      { path: "/terminos", element: esperar(<Legal />) },
-      { path: "/privacidad", element: esperar(<Legal />) },
-      { path: "/cookies", element: esperar(<Legal />) },
-      { path: "/cambios-y-devoluciones", element: esperar(<Legal />) },
-      { path: "/compra-segura", element: esperar(<Legal />) },
+      { path: "/personaliza", element: tiene("personaliza") ? esperar(<Personaliza />) : <Pronto titulo="Personaliza" /> },
+      { path: "/guia-de-tallas", element: tiene("guia") ? esperar(<GuiaTallasPagina />) : <Pronto titulo="Guía de tallas" /> },
+      { path: "/contacto", element: tiene("contacto") ? esperar(<ContactoPagina />) : <Pronto titulo="Contacto" /> },
+      { path: "/terminos", element: tiene("legales") ? esperar(<Legal />) : <Pronto titulo="Información legal" /> },
+      { path: "/privacidad", element: tiene("legales") ? esperar(<Legal />) : <Pronto titulo="Información legal" /> },
+      { path: "/cookies", element: tiene("legales") ? esperar(<Legal />) : <Pronto titulo="Información legal" /> },
+      { path: "/cambios-y-devoluciones", element: tiene("legales") ? esperar(<Legal />) : <Pronto titulo="Información legal" /> },
+      { path: "/compra-segura", element: tiene("legales") ? esperar(<Legal />) : <Pronto titulo="Información legal" /> },
       { path: "*", element: <NoEncontrada /> },
     ],
   },

@@ -6,6 +6,7 @@ import { useAtraparFoco, useBloquearScroll } from "../lib/util";
 import { Logo } from "../marca/Logo";
 import { FotoProducto } from "./FotoProducto";
 import { Icono, IconoInstagram, IconoWhatsApp } from "./Iconos";
+import { tiene } from "../avance";
 import { enlaceWhatsApp } from "../datos";
 
 function Anuncios() {
@@ -67,7 +68,16 @@ function MenuMovil({ abierto, cerrar }: { abierto: boolean; cerrar: () => void }
   useBloquearScroll(abierto);
   useAtraparFoco(caja, abierto, cerrar);
   return (
-    <div className={`menu-movil${abierto ? " menu-movil--abierto" : ""}`} ref={caja} id="menu-movil" role="dialog" aria-modal="true" aria-label="Menú" inert={!abierto} aria-hidden={!abierto}>
+    <div
+      className={`menu-movil${abierto ? " menu-movil--abierto" : ""}`}
+      ref={caja}
+      id="menu-movil"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menú"
+      inert={!abierto}
+      aria-hidden={!abierto}
+    >
       <div className="menu-movil__cabeza">
         <Logo className="menu-movil__logo" />
         <button type="button" className="boton-icono" onClick={cerrar} aria-label="Cerrar el menú" data-foco-inicial>
@@ -148,7 +158,14 @@ export function Encabezado() {
       <header className="encabezado" data-transparente={transparente || undefined} data-compacto={!arriba || undefined} onMouseLeave={() => setPanel(null)}>
         <div className="encabezado__fila">
           <div className="encabezado__izq">
-            <button type="button" className="boton-icono encabezado__menu" aria-label="Abrir el menú" aria-expanded={menu} aria-controls="menu-movil" onClick={() => setMenu(true)}>
+            <button
+              type="button"
+              className="boton-icono encabezado__menu"
+              aria-label="Abrir el menú"
+              aria-expanded={menu}
+              aria-controls="menu-movil"
+              onClick={() => setMenu(true)}
+            >
               <Icono nombre="menu" />
             </button>
             <nav className="nav" aria-label="Principal">
@@ -189,17 +206,31 @@ export function Encabezado() {
                 Muestra<span className="muestra-diseno__mas"> de diseño</span>
               </span>
             )}
-            <a className="boton-icono solo-escritorio" href={`https://instagram.com/${tienda.instagram}`} target="_blank" rel="noreferrer" aria-label="Instagram de Schuster">
+            <a
+              className="boton-icono solo-escritorio"
+              href={`https://instagram.com/${tienda.instagram}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram de Schuster"
+            >
               <IconoInstagram />
             </a>
-            <button type="button" id="boton-bolsa" className="boton-icono bolsa-boton" onClick={() => bolsa.abrir()} aria-label={`Abrir la bolsa, ${n} ${n === 1 ? "producto" : "productos"}`}>
-              <Icono nombre="bolsa" />
-              {n > 0 && (
-                <span key={n} className="bolsa-boton__n" aria-hidden="true">
-                  {n}
-                </span>
-              )}
-            </button>
+            {tiene("bolsa") && (
+              <button
+                type="button"
+                id="boton-bolsa"
+                className="boton-icono bolsa-boton"
+                onClick={() => bolsa.abrir()}
+                aria-label={`Abrir la bolsa, ${n} ${n === 1 ? "producto" : "productos"}`}
+              >
+                <Icono nombre="bolsa" />
+                {n > 0 && (
+                  <span key={n} className="bolsa-boton__n" aria-hidden="true">
+                    {n}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         </div>
         {panel && <Panel seccion={panel} cerrar={() => setPanel(null)} />}
