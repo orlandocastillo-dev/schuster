@@ -6,7 +6,7 @@ Tienda web de Schuster, marca de ropa de REG Marketing en Barranquilla. Ropa par
 
 Todo está en la carpeta `contenido/`:
 
-- **`tienda.json`**: número de WhatsApp, correo, Instagram, dirección, razón social y NIT (salen en las páginas legales), los mensajes de la cinta de arriba y `muestraDeDiseno` (mientras esté en `true` se ve la etiqueta "Muestra de diseño" y la nota de precios de ejemplo).
+- **`tienda.json`**: número de WhatsApp, correo, Instagram, dirección, razón social y NIT (salen en las páginas legales) y los mensajes de la cinta de arriba.
 - **`productos.json`**: cada producto con su nombre, sección (`hombre`, `dama`, `infantil`, `accesorios`), tipo, precio, colores, grupo de tallas, si es nuevo y la fecha de llegada (con esa se ordena "Lo más nuevo"). Arriba está la lista de colores con su código, para que todos los productos usen el mismo tono.
 - **`tallas.json`**: las tallas de cada grupo y las medidas de la guía.
 - **`personaliza.json`**: las prendas del personalizador, sus precios, el valor del estampado por lado y las tintas.

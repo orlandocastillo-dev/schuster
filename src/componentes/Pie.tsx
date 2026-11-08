@@ -98,7 +98,6 @@ export function Pie() {
         <p>
           © {anio} {tienda.nombre}. Una marca de REG Marketing.
         </p>
-        {tienda.muestraDeDiseno && <p>Muestra de diseño: precios y fotos de ejemplo.</p>}
       </div>
     </footer>
   );

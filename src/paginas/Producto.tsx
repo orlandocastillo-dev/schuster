@@ -103,7 +103,6 @@ function Ficha({ id }: { id: string }) {
             {p.nuevo && <span className="etiqueta etiqueta--suelta">Nuevo</span>}
             <h1 className="producto__nombre">{p.nombre}</h1>
             <p className="producto__precio">{precio(p.precio)}</p>
-            {tienda.muestraDeDiseno && <p className="nota-muestra">Muestra de diseño: precio de ejemplo.</p>}
 
             <fieldset className="opcion">
               <legend>

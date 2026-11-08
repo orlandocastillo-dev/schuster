@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { grupos, tienda } from "../datos";
+import { grupos } from "../datos";
 
 const ORDEN = ["adulto", "dama", "infantil", "nino", "pantaloneta", "pijama", "chaqueta"];
 
@@ -71,7 +71,6 @@ export function GuiaTallas({ inicial = "adulto" }: { inicial?: string }) {
           <li>Si estás entre dos tallas, escoge la más grande o escríbenos y te ayudamos.</li>
         </ul>
       </div>
-      {tienda.muestraDeDiseno && <p className="nota-muestra">Medidas de ejemplo: la tienda confirma las medidas reales de cada prenda.</p>}
     </div>
   );
 }

@@ -3151,26 +3151,6 @@ body:has(.barra-compra--visible) .wa-flotante {
     transform: translateY(30px) scale(0.6);
   }
 }
-.muestra-diseno {
-  margin-right: 6px;
-  padding: 5px 8px;
-  white-space: nowrap;
-  background: var(--rojo);
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  pointer-events: none;
-}
-.muestra-diseno__mas {
-  display: none;
-}
-@media (min-width: 640px) {
-  .muestra-diseno__mas {
-    display: inline;
-  }
-}
 .aviso-zona {
   position: fixed;
   left: 50%;

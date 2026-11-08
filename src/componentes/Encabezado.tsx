@@ -201,11 +201,6 @@ export function Encabezado() {
           </Link>
 
           <div className="encabezado__der">
-            {tienda.muestraDeDiseno && (
-              <span className="muestra-diseno">
-                Muestra<span className="muestra-diseno__mas"> de diseño</span>
-              </span>
-            )}
             <a
               className="boton-icono solo-escritorio"
               href={`https://instagram.com/${tienda.instagram}`}

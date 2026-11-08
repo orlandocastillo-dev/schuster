@@ -421,7 +421,7 @@ export default function Personaliza() {
               <span>Agregar a la bolsa</span>
             </button>
             <p className="nota-muestra">
-              {tienda.muestraDeDiseno ? "Muestra de diseño: precios de ejemplo. " : ""}Si subes un logo, te pedimos el archivo original por WhatsApp para estamparlo con la mejor calidad. <Link to="/guia-de-tallas">Ver guía de tallas</Link>.
+              Si subes un logo, te pedimos el archivo original por WhatsApp para estamparlo con la mejor calidad. <Link to="/guia-de-tallas">Ver guía de tallas</Link>.
             </p>
           </div>
         </div>

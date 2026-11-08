@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { numeroWhatsApp, precio, tienda } from "../datos";
+import { numeroWhatsApp, precio } from "../datos";
 import { bolsa, enlacePedido, total, unidades, useBolsa, useBolsaAbierta, type Linea } from "../estado/bolsa";
 import { useAtraparFoco, useBloquearScroll } from "../lib/util";
 import { Leon } from "../marca/Logo";
@@ -90,7 +90,6 @@ export function CajonBolsa() {
               </p>
               <p className="cajon__nota">
                 Coordinamos el pago y la entrega por WhatsApp.
-                {tienda.muestraDeDiseno && " Muestra de diseño: los precios son de ejemplo."}
               </p>
               <a className="boton boton--wa boton--ancho" href={enlacePedido(lineas)} target="_blank" rel="noreferrer">
                 <IconoWhatsApp className="icono" />
