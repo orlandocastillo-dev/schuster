@@ -1103,6 +1103,22 @@ html:not([data-entrada]) [data-entra] {
     transform: translateY(14px);
   }
 }
+/* En el celular las prendas tienen su propio espacio arriba y nunca tapan el texto */
+@media (max-width: 899px) {
+  .portada {
+    align-content: end;
+    padding-bottom: 40px;
+  }
+  .portada__prendas {
+    position: relative;
+    inset: auto;
+    height: clamp(210px, 38svh, 340px);
+    margin: 0 calc(var(--margen) * -1) 12px;
+  }
+  .portada__bajar {
+    display: none;
+  }
+}
 @media (min-width: 900px) {
   .portada {
     align-items: center;
