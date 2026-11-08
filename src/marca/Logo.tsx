@@ -1,4 +1,5 @@
 import { CAJA_LEON, CAJA_LOGO, CAJA_PALABRA, LEON, LETRAS } from "./trazos";
+import { FORMAS } from "../prendas/formas";
 
 // El símbolo se dibuja desde 0,0: el lienzo de afuera tiene que empezar ahí también o el dibujo queda corrido
 const desdeCero = (caja: string) => {
@@ -52,6 +53,14 @@ export function Sprite() {
           <stop offset="0" stopColor="#000" stopOpacity=".26" />
           <stop offset="1" stopColor="#000" stopOpacity="0" />
         </radialGradient>
+        {/* Siluetas de las prendas que vienen de foto, para recortar el color */}
+        {Object.values(FORMAS)
+          .flatMap((f) => (f.foto ? [f.foto] : []))
+          .map((f) => (
+            <mask key={f.archivo} id={`m-${f.archivo}`} maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="500">
+              <image href={`${import.meta.env.BASE_URL}prendas/${f.archivo}-mascara.webp`} x="0" y={f.y} width="400" height={f.alto} preserveAspectRatio="none" />
+            </mask>
+          ))}
         {TEXTURAS.map((t) => (
           <pattern key={t} id={`t-${t}`} width="48" height="48" patternUnits="userSpaceOnUse">
             <image href={`${import.meta.env.BASE_URL}texturas/${t}.png`} width="48" height="48" />

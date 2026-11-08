@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Estampado } from "../datos";
-import { FORMAS, type Forma, type Vista, type Zona } from "./formas";
+import { FORMAS, type FotoBase, type Forma, type Vista, type Zona } from "./formas";
 
 export type VistaFoto = "frente" | "espalda" | "detalle" | "colores";
 
@@ -102,6 +102,29 @@ function Dibujo({ vista, forma, color, estampado, conLogo, extra }: Capa) {
   );
 }
 
+const BASE = import.meta.env.BASE_URL;
+
+/**
+ * La prenda armada desde una foto real en blanco: el color se recorta con la silueta,
+ * el logo va encima y las sombras y brillos de la tela pasan por encima de todo,
+ * así el estampado sigue los pliegues.
+ */
+function DesdeFoto({ foto, color, estampado, espalda, extra }: { foto: FotoBase; color: string; estampado: Estampado; espalda: boolean; extra?: ReactNode }) {
+  const ruta = `${BASE}prendas/${foto.archivo}`;
+  const caja = { x: 0, y: foto.y, width: 400, height: foto.alto, preserveAspectRatio: "none" as const };
+  const tipo: Estampado = espalda ? "palabra" : estampado;
+  const zona = espalda ? foto.logoEspalda : estampado === "leon-pequeno" ? foto.pecho : foto.logo;
+  return (
+    <>
+      <rect x="0" y="0" width="400" height="500" fill={color} mask={`url(#m-${foto.archivo})`} />
+      <Marca zona={zona} tipo={tipo} tinta={tintaPara(color)} />
+      {extra}
+      <image href={`${ruta}-sombra.webp`} {...caja} style={{ mixBlendMode: "multiply" }} pointerEvents="none" />
+      <image href={`${ruta}-luz.webp`} {...caja} style={{ mixBlendMode: "screen" }} opacity={esOscuro(color) ? 0.38 : 0.12} pointerEvents="none" />
+    </>
+  );
+}
+
 /** El dibujo de una prenda sin el lienzo, para meterlo dentro de otro SVG. */
 export function CapaPrenda({
   forma: id,
@@ -126,6 +149,15 @@ export function CapaPrenda({
   const espejo = espalda && !forma.espalda;
   const estEspalda: Estampado = id === "jeans" ? "leon" : "palabra";
   const logoAtras = espalda && (forma.espalda ? vista.logo != null : !!forma.espejo);
+
+  if (forma.foto) {
+    return (
+      <>
+        {sombra && <ellipse cx="200" cy="456" rx="140" ry="12" fill="url(#g-sombra)" />}
+        <DesdeFoto foto={forma.foto} color={color} estampado={estampado} espalda={espalda} extra={extra} />
+      </>
+    );
+  }
 
   return (
     <>

@@ -33,7 +33,19 @@ export interface Vista {
   pecho?: Zona;
 }
 
+/** Prenda armada desde una foto real en blanco: /prendas/<archivo>-mascara, -sombra y -luz. */
+export interface FotoBase {
+  archivo: string;
+  /** Dónde cae la foto dentro del lienzo de 400 x 500. */
+  y: number;
+  alto: number;
+  logo: Zona;
+  pecho: Zona;
+  logoEspalda: Zona;
+}
+
 export interface Forma {
+  foto?: FotoBase;
   frente: Vista;
   espalda?: Vista;
   textura?: "tejido" | "denim" | "malla" | "lona" | "rizo" | "nailon" | "ninguna";
@@ -75,6 +87,14 @@ const CAMISA_BAJO = "L114 432Q118 452 160 450Q200 444 240 450Q282 452 286 432";
 export const FORMAS: Record<string, Forma> = {
   camiseta: {
     textura: "tejido",
+    foto: {
+      archivo: "camiseta",
+      y: 2,
+      alto: 496,
+      logo: { x: 200, y: 168, w: 78 },
+      pecho: { x: 252, y: 138, w: 30 },
+      logoEspalda: { x: 200, y: 150, w: 80 },
+    },
     frente: {
       cuerpo: `${CAMISETA}C236 100 164 100 148 72Z`,
       partes: [
