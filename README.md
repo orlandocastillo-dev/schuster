@@ -15,7 +15,7 @@ El número de WhatsApp va con indicativo y sin espacios, por ejemplo `"573001234
 
 **Formulario de contacto.** La página no tiene servidor, así que el formulario abre el correo de quien escribe con el mensaje listo para la tienda. Si quieren que llegue solo, sin que la persona tenga que darle enviar, creen un formulario gratis en un servicio como Formspree y pongan la dirección que les da en `formulario` dentro de `tienda.json`.
 
-**Páginas legales.** Términos, datos personales, cookies, cambios y devoluciones y compra segura están en `src/paginas/Legal.tsx`. Son una base escrita según la ley colombiana; antes de abrir la tienda debe revisarlas un abogado y hay que completar lo que está entre corchetes.
+**Páginas legales.** Términos, datos personales, cookies, cambios y devoluciones y compra segura están en `src/paginas/Legal.tsx`. Explican cómo funciona la tienda y citan la ley colombiana que aplica. El NIT, el correo y el WhatsApp salen solos cuando se ponen en `tienda.json`.
 
 Las fotos van en `fotos/`, las instrucciones están en [`fotos/LEEME.md`](fotos/LEEME.md).
 
@@ -41,6 +41,6 @@ npm run build
 ## Pendiente de la cliente
 
 - Número de WhatsApp y correo de la tienda.
-- NIT y las condiciones propias de cambios (días y quién paga el envío).
+- NIT.
 - Fotos reales de los productos.
 - Precios reales (los de ahora son de ejemplo) y medidas reales de la guía de tallas.

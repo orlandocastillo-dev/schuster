@@ -3,14 +3,13 @@ import { numeroWhatsApp, tienda } from "../datos";
 import { Volver } from "../componentes/Volver";
 import { useTitulo } from "../lib/util";
 
-// Lo que la tienda todavía no ha enviado se muestra entre corchetes para que se note
-const o = (valor: string, falta: string) => valor || `[${falta}]`;
-
-const empresa = o(tienda.razonSocial, "razón social");
-const nit = o(tienda.nit, "NIT por confirmar");
-const correo = o(tienda.correo, "correo por confirmar");
-const whatsapp = numeroWhatsApp() ? `+${numeroWhatsApp()}` : "[WhatsApp por confirmar]";
+// Si un dato todavía no está en tienda.json, la frase se arma sin él
+const empresa = tienda.razonSocial || tienda.nombre;
+const conNit = tienda.nit ? `, NIT ${tienda.nit},` : "";
+const whatsapp = numeroWhatsApp() ? `+${numeroWhatsApp()}` : "";
 const direccion = `${tienda.direccion}, ${tienda.ciudad}, Colombia`;
+const canales = [whatsapp && `WhatsApp ${whatsapp}`, tienda.correo && `correo ${tienda.correo}`, `Instagram @${tienda.instagram}`].filter(Boolean).join(", ");
+const escribenos = [whatsapp ? `al WhatsApp ${whatsapp}` : "por WhatsApp", tienda.correo && `al correo ${tienda.correo}`].filter(Boolean).join(" o ");
 
 interface Documento {
   titulo: string;
@@ -25,7 +24,7 @@ export const DOCUMENTOS: Record<string, Documento> = {
     secciones: [
       {
         t: "Quiénes somos",
-        p: [`${tienda.nombre} es una marca de ${empresa}, NIT ${nit}, con tienda en ${direccion}. Puedes escribirnos al correo ${correo} o al WhatsApp ${whatsapp}.`],
+        p: [`${tienda.nombre} es una marca de ${empresa}${conNit} con tienda en ${direccion}. Puedes escribirnos ${escribenos}.`],
       },
       {
         t: "Cómo funciona un pedido",
@@ -76,7 +75,7 @@ export const DOCUMENTOS: Record<string, Documento> = {
     secciones: [
       {
         t: "Responsable",
-        p: [`${empresa}, NIT ${nit}, ${direccion}. Correo: ${correo}. WhatsApp: ${whatsapp}.`],
+        p: [`${empresa}${conNit || ","} ${direccion}. Canales de contacto: ${canales}.`],
       },
       {
         t: "Qué datos recogemos",
@@ -101,7 +100,7 @@ export const DOCUMENTOS: Record<string, Documento> = {
       },
       {
         t: "Cómo ejercerlos",
-        p: [`Escríbenos a ${correo} o al WhatsApp ${whatsapp}. Respondemos las consultas en máximo 10 días hábiles y los reclamos en máximo 15 días hábiles, como dice la ley.`],
+        p: [`Escríbenos ${escribenos}. Respondemos las consultas en máximo 10 días hábiles y los reclamos en máximo 15 días hábiles, como dice la ley.`],
       },
       {
         t: "La página",
@@ -140,7 +139,7 @@ export const DOCUMENTOS: Record<string, Documento> = {
     secciones: [
       {
         t: "Cambios por talla o color",
-        p: ["Puedes cambiar una prenda por otra talla o color dentro de los [número de días por definir] días siguientes a la entrega, con la prenda sin usar, sin lavar y con sus etiquetas. El envío del cambio [condiciones por definir]."],
+        p: ["Si la talla o el color no te quedó como esperabas, escríbenos apenas recibas tu pedido y te ayudamos a cambiarla por otra. La prenda debe estar sin usar, sin lavar y con sus etiquetas. El costo del envío del cambio lo acordamos contigo en el chat."],
       },
       {
         t: "Derecho de retracto",
@@ -158,7 +157,7 @@ export const DOCUMENTOS: Record<string, Documento> = {
       },
       {
         t: "Cómo pedir un cambio o una garantía",
-        p: [`Escríbenos al WhatsApp ${whatsapp} o al correo ${correo} con tu nombre, qué compraste, cuándo lo recibiste y fotos de la prenda. También puedes acercarte a la tienda: ${direccion}.`],
+        p: [`Escríbenos ${escribenos} con tu nombre, qué compraste, cuándo lo recibiste y fotos de la prenda. También puedes acercarte a la tienda: ${direccion}.`],
       },
     ],
   },
@@ -172,7 +171,7 @@ export const DOCUMENTOS: Record<string, Documento> = {
       },
       {
         t: "Nuestros canales oficiales",
-        p: [`WhatsApp ${whatsapp}, Instagram @${tienda.instagram}, correo ${correo} y la tienda en ${direccion}. Si alguien te escribe desde otro número diciendo que es ${tienda.nombre}, desconfía y escríbenos por un canal oficial.`],
+        p: [`${canales.charAt(0).toUpperCase() + canales.slice(1)}, y la tienda en ${direccion}. Si alguien te escribe desde otro número diciendo que es ${tienda.nombre}, desconfía y escríbenos por un canal oficial.`],
       },
       {
         t: "Antes de pagar",
@@ -201,7 +200,6 @@ export default function Legal() {
         </nav>
       </div>
       <h1 className="titular titular--legal">{doc.titulo}</h1>
-      {tienda.muestraDeDiseno && <p className="legal__borrador">Borrador: este texto es una base y debe revisarlo un abogado antes de publicar la tienda. Lo que está entre corchetes lo completa la tienda.</p>}
       <p className="seccion__frase">{doc.intro}</p>
       {doc.secciones.map((s) => (
         <section key={s.t}>
