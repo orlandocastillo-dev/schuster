@@ -42,6 +42,10 @@ export interface FotoBase {
   logo: Zona;
   pecho: Zona;
   logoEspalda: Zona;
+  /** La espalda es la misma foto al revés (mug, toalla...): el estampado se pone sin voltear. */
+  espejoEspalda?: boolean;
+  /** Altura de la sombra en el piso, si la pieza no llega hasta abajo. */
+  suelo?: number;
 }
 
 export interface Forma {
@@ -507,6 +511,15 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   pantaloneta: {
+    foto: {
+      archivo: "pantaloneta",
+      suelo: 398,
+      y: 0,
+      alto: 500,
+      logo: { x: 300, y: 300, w: 34 },
+      pecho: { x: 300, y: 300, w: 34 },
+      logoEspalda: { x: 200, y: 128, w: 38 },
+    },
     textura: "nailon",
     bajar: 40,
     frente: {
@@ -536,6 +549,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   jeans: {
+    foto: {
+      archivo: "jeans",
+      y: 0,
+      alto: 500,
+      logo: { x: 262, y: 80, w: 18 },
+      pecho: { x: 262, y: 80, w: 18 },
+      logoEspalda: { x: 200, y: 25, w: 28 },
+    },
     textura: "denim",
     hilo: "#c98a3c",
     frente: {
@@ -569,6 +590,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   sudadera: {
+    foto: {
+      archivo: "jogger",
+      y: 0,
+      alto: 500,
+      logo: { x: 150, y: 165, w: 26 },
+      pecho: { x: 150, y: 165, w: 26 },
+      logoEspalda: { x: 200, y: 24, w: 34 },
+    },
     textura: "tejido",
     frente: {
       cuerpo: "M118 40L282 40L292 430L222 434L200 150L178 434L108 430Z",
@@ -597,6 +626,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   jogger: {
+    foto: {
+      archivo: "jogger",
+      y: 0,
+      alto: 500,
+      logo: { x: 150, y: 165, w: 26 },
+      pecho: { x: 150, y: 165, w: 26 },
+      logoEspalda: { x: 200, y: 24, w: 34 },
+    },
     textura: "tejido",
     frente: {
       cuerpo: "M120 40L280 40L284 200L262 440L218 442L200 150L182 442L138 440L116 200Z",
@@ -626,6 +663,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   totebag: {
+    foto: {
+      archivo: "totebag",
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 345, w: 110 },
+      pecho: { x: 200, y: 340, w: 64 },
+      logoEspalda: { x: 200, y: 345, w: 80 },
+    },
     textura: "lona",
     frente: {
       cuerpo: "M110 170L290 170L296 450L104 450Z",
@@ -642,11 +687,20 @@ export const FORMAS: Record<string, Forma> = {
       pliegues: ["M150 220Q160 320 146 430", "M250 220Q240 320 256 430"],
       logo: null,
     },
-    area: { x: 124, y: 200, w: 152, h: 220 },
-    areaEspalda: { x: 124, y: 200, w: 152, h: 220 },
+    area: { x: 92, y: 240, w: 216, h: 210 },
+    areaEspalda: { x: 92, y: 240, w: 216, h: 210 },
   },
 
   tula: {
+    foto: {
+      archivo: "tula",
+      suelo: 428,
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 250, w: 100 },
+      pecho: { x: 200, y: 240, w: 60 },
+      logoEspalda: { x: 200, y: 250, w: 80 },
+    },
     textura: "nailon",
     frente: {
       cuerpo: "M120 100Q200 118 280 100L288 440L112 440Z",
@@ -729,6 +783,16 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   visera: {
+    foto: {
+      archivo: "visera",
+      suelo: 350,
+      y: 0,
+      alto: 500,
+      logo: { x: 230, y: 205, w: 38 },
+      pecho: { x: 230, y: 205, w: 34 },
+      logoEspalda: { x: 230, y: 205, w: 30 },
+      espejoEspalda: true,
+    },
     textura: "tejido",
     bajar: 40,
     frente: {
@@ -741,6 +805,16 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   toalla: {
+    foto: {
+      archivo: "toalla",
+      suelo: 352,
+      y: 0,
+      alto: 500,
+      logo: { x: 205, y: 215, w: 56, rot: 10 },
+      pecho: { x: 205, y: 215, w: 56, rot: 10 },
+      logoEspalda: { x: 205, y: 215, w: 56, rot: 10 },
+      espejoEspalda: true,
+    },
     textura: "rizo",
     frente: {
       cuerpo: "M70 180L330 180Q340 180 340 190L340 390Q340 402 328 402L72 402Q60 402 60 390L60 190Q60 180 70 180Z",
@@ -767,6 +841,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   delantal: {
+    foto: {
+      archivo: "delantal",
+      y: 0,
+      alto: 500,
+      logo: { x: 197, y: 215, w: 70 },
+      pecho: { x: 197, y: 165, w: 40 },
+      logoEspalda: { x: 197, y: 250, w: 60 },
+    },
     textura: "lona",
     frente: {
       cuerpo: "M150 70L250 70L254 170C270 190 300 200 310 200L300 460L100 460L90 200C100 200 130 190 146 170Z",
@@ -783,6 +865,15 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   capa: {
+    foto: {
+      archivo: "capa",
+      suelo: 418,
+      y: 0,
+      alto: 500,
+      logo: { x: 202, y: 230, w: 96 },
+      pecho: { x: 202, y: 170, w: 50 },
+      logoEspalda: { x: 202, y: 230, w: 80 },
+    },
     textura: "nailon",
     frente: {
       cuerpo: "M160 80Q200 92 240 80L380 430Q200 470 20 430Z",
@@ -812,6 +903,15 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   "gorro-cocina": {
+    foto: {
+      archivo: "gorro-cocina",
+      suelo: 414,
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 345, w: 70 },
+      pecho: { x: 200, y: 345, w: 70 },
+      logoEspalda: { x: 200, y: 345, w: 60 },
+    },
     textura: "lona",
     frente: {
       cuerpo: "M120 300C80 300 70 240 100 210C80 160 130 120 170 140C180 100 230 96 248 132C290 112 330 160 304 210C334 240 320 300 280 300Z",
@@ -824,6 +924,16 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   mug: {
+    foto: {
+      archivo: "mug",
+      suelo: 412,
+      y: 0,
+      alto: 500,
+      logo: { x: 148, y: 230, w: 90 },
+      pecho: { x: 148, y: 230, w: 60 },
+      logoEspalda: { x: 148, y: 230, w: 56 },
+      espejoEspalda: true,
+    },
     textura: "ninguna",
     espejo: true,
     frente: {
@@ -837,7 +947,7 @@ export const FORMAS: Record<string, Forma> = {
       logo: { x: 200, y: 288, w: 92 },
       pecho: { x: 200, y: 288, w: 60 },
     },
-    area: { x: 150, y: 180, w: 120, h: 210 },
+    area: { x: 58, y: 110, w: 180, h: 240 },
   },
 
   panoleta: {
@@ -852,6 +962,16 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   cartuchera: {
+    foto: {
+      archivo: "cartuchera",
+      suelo: 350,
+      y: 0,
+      alto: 500,
+      logo: { x: 245, y: 250, w: 50, rot: -8 },
+      pecho: { x: 245, y: 250, w: 50, rot: -8 },
+      logoEspalda: { x: 245, y: 250, w: 50, rot: -8 },
+      espejoEspalda: true,
+    },
     textura: "lona",
     frente: {
       cuerpo: "M70 220Q70 190 100 190L300 190Q330 190 330 220L330 330Q330 360 300 360L100 360Q70 360 70 330Z",

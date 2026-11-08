@@ -113,14 +113,23 @@ function DesdeFoto({ foto, color, estampado, espalda, extra }: { foto: FotoBase;
   const ruta = `${BASE}prendas/${foto.archivo}`;
   const caja = { x: 0, y: foto.y, width: 400, height: foto.alto, preserveAspectRatio: "none" as const };
   const tipo: Estampado = espalda ? "palabra" : estampado;
-  const zona = espalda ? foto.logoEspalda : estampado === "leon-pequeno" ? foto.pecho : foto.logo;
+  let zona = espalda ? foto.logoEspalda : estampado === "leon-pequeno" ? foto.pecho : foto.logo;
+  // Sin foto de espalda: se voltea la foto, pero el estampado se pone derecho en el lugar reflejado
+  const voltear = espalda && foto.espejoEspalda;
+  if (voltear) zona = { ...zona, x: 400 - zona.x, rot: zona.rot ? -zona.rot : undefined };
+  const giro = voltear ? "translate(400 0) scale(-1 1)" : undefined;
+  const capa = (hijos: ReactNode) => (giro ? <g transform={giro}>{hijos}</g> : hijos);
   return (
     <>
-      <rect x="0" y="0" width="400" height="500" fill={color} mask={`url(#m-${foto.archivo})`} />
+      {capa(<rect x="0" y="0" width="400" height="500" fill={color} mask={`url(#m-${foto.archivo})`} />)}
       <Marca zona={zona} tipo={tipo} tinta={tintaPara(color)} />
       {extra}
-      <image href={`${ruta}-sombra.webp`} {...caja} style={{ mixBlendMode: "multiply" }} pointerEvents="none" />
-      <image href={`${ruta}-luz.webp`} {...caja} style={{ mixBlendMode: "screen" }} opacity={esOscuro(color) ? 0.38 : 0.12} pointerEvents="none" />
+      {capa(
+        <>
+          <image href={`${ruta}-sombra.webp`} {...caja} style={{ mixBlendMode: "multiply" }} pointerEvents="none" />
+          <image href={`${ruta}-luz.webp`} {...caja} style={{ mixBlendMode: "screen" }} opacity={esOscuro(color) ? 0.38 : 0.12} pointerEvents="none" />
+        </>,
+      )}
     </>
   );
 }
@@ -153,7 +162,7 @@ export function CapaPrenda({
   if (forma.foto) {
     return (
       <>
-        {sombra && <ellipse cx="200" cy="456" rx="140" ry="12" fill="url(#g-sombra)" />}
+        {sombra && <ellipse cx="200" cy={forma.foto.suelo ?? 456} rx="140" ry="12" fill="url(#g-sombra)" />}
         <DesdeFoto foto={forma.foto} color={color} estampado={estampado} espalda={espalda} extra={extra} />
       </>
     );
