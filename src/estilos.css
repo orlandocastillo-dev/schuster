@@ -1172,29 +1172,46 @@ html:not([data-entrada]) [data-entra] {
     align-items: center;
     padding-bottom: 96px;
   }
+  /* Las tres prendas van en un grupo de proporción fija: crecen juntas y no se separan en pantallas anchas */
   .portada__prendas {
-    inset: 0 0 0 46%;
+    inset: auto;
+    right: 2vw;
+    top: calc(50% + var(--alto-enc) / 2 - 48px);
+    width: min(40vw, 900px, calc((100svh - var(--alto-enc) - 150px) / 0.82));
     height: auto;
+    aspect-ratio: 1 / 0.82;
+    transform: translateY(-50%);
   }
   .flota--1 {
-    width: 34vw;
-    max-width: 520px;
-    left: 18%;
-    top: 16%;
+    width: 58%;
+    max-width: none;
+    left: 24%;
+    top: 0;
     margin-left: 0;
   }
   .flota--2 {
-    width: 19vw;
-    max-width: 300px;
-    left: -2%;
-    top: 52%;
+    width: 33%;
+    max-width: none;
+    left: 2%;
+    top: 46%;
   }
   .flota--3 {
-    width: 17vw;
-    max-width: 260px;
+    width: 29%;
+    max-width: none;
     left: auto;
-    right: 4%;
-    top: 58%;
+    right: 0;
+    top: 56%;
+  }
+  @media (min-width: 1440px) {
+    .portada__prendas {
+      width: min(48vw, 900px, calc((100svh - var(--alto-enc) - 150px) / 0.82));
+    }
+  }
+  @media (max-width: 1279px) {
+    /* Pantallas medianas: el título más chico para que no se monte sobre las prendas */
+    .portada__titulo {
+      font-size: 7.2vw;
+    }
   }
   .portada__leon {
     right: -4%;
