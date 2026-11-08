@@ -118,6 +118,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   "camiseta-dama": {
+    foto: {
+      archivo: "camiseta-dama",
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 165, w: 68 },
+      pecho: { x: 250, y: 138, w: 28 },
+      logoEspalda: { x: 200, y: 140, w: 72 },
+    },
     textura: "tejido",
     frente: {
       cuerpo:
@@ -249,6 +257,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   "camisa-larga": {
+    foto: {
+      archivo: "camisa-larga",
+      y: 0,
+      alto: 500,
+      logo: { x: 262, y: 150, w: 26 },
+      pecho: { x: 262, y: 150, w: 26 },
+      logoEspalda: { x: 200, y: 110, w: 60 },
+    },
     textura: "lona",
     frente: {
       cuerpo: `M152 70L112 84${MANGA_LARGA_I}${CAMISA_BAJO}${MANGA_LARGA_D}L288 84L248 70L200 98Z`,
@@ -386,6 +402,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   buzo: {
+    foto: {
+      archivo: "buzo",
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 238, w: 62 },
+      pecho: { x: 256, y: 188, w: 28 },
+      logoEspalda: { x: 200, y: 215, w: 75 },
+    },
     textura: "tejido",
     frente: {
       cuerpo: "M160 80L116 92L86 116L52 404L88 412L120 200L118 430L282 430L280 200L312 412L348 404L314 116L284 92L240 80C226 98 174 98 160 80Z",
@@ -421,6 +445,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   top: {
+    foto: {
+      archivo: "top",
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 165, w: 60 },
+      pecho: { x: 245, y: 140, w: 26 },
+      logoEspalda: { x: 200, y: 170, w: 70 },
+    },
     textura: "tejido",
     bajar: 60,
     frente: {
@@ -445,6 +477,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   peto: {
+    foto: {
+      archivo: "peto",
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 195, w: 66 },
+      pecho: { x: 200, y: 150, w: 40 },
+      logoEspalda: { x: 200, y: 175, w: 66 },
+    },
     textura: "malla",
     frente: {
       cuerpo: "M150 70L120 76C116 130 140 170 122 210L116 440Q200 452 284 440L278 210C260 170 284 130 280 76L250 70C236 120 164 120 150 70Z",
@@ -652,6 +692,14 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   gorra: {
+    foto: {
+      archivo: "gorra",
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 190, w: 62 },
+      pecho: { x: 200, y: 190, w: 50 },
+      logoEspalda: { x: 200, y: 200, w: 40 },
+    },
     textura: "tejido",
     bajar: 40,
     frente: {
@@ -677,7 +725,7 @@ export const FORMAS: Record<string, Forma> = {
       costuras: ["M200 116L200 246", "M200 116C160 150 140 220 138 300", "M200 116C240 150 260 220 262 300"],
       logo: { x: 200, y: 200, w: 40 },
     },
-    area: { x: 140, y: 160, w: 120, h: 100 },
+    area: { x: 132, y: 140, w: 136, h: 110 },
   },
 
   visera: {

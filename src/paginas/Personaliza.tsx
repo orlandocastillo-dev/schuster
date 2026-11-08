@@ -66,7 +66,7 @@ export default function Personaliza() {
   const vista = useRef<HTMLDivElement>(null);
 
   const area = (lado === "espalda" ? forma.areaEspalda : forma.area) ?? AREA;
-  const bajar = forma.bajar ?? 0;
+  const bajar = forma.foto ? 0 : (forma.bajar ?? 0);
   const actual = disenos[lado];
   const modo = actual?.tipo ?? "nada";
   const unica = prenda.tallas === "unica";
@@ -113,7 +113,7 @@ export default function Personaliza() {
       for (const l of ["frente", "espalda"] as Lado[]) {
         if (!d[l] || !nueva.lados.includes(l)) continue;
         const a = (l === "espalda" ? f.areaEspalda : f.area) ?? AREA;
-        r[l] = { ...d[l]!, x: a.x + a.w / 2, y: a.y + (f.bajar ?? 0) + a.h * 0.36, tamano: d[l]!.tipo === "logo" ? Math.min(d[l]!.tamano, a.w) : d[l]!.tamano };
+        r[l] = { ...d[l]!, x: a.x + a.w / 2, y: a.y + (f.foto ? 0 : (f.bajar ?? 0)) + a.h * 0.36, tamano: d[l]!.tipo === "logo" ? Math.min(d[l]!.tamano, a.w) : d[l]!.tamano };
       }
       return r;
     });

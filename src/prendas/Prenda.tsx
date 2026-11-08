@@ -215,11 +215,11 @@ export function Prenda({ forma: id, color, colores = [], estampado = "leon", vis
 
   let caja = "0 0 400 500";
   if (vista === "detalle") {
-    const v = forma.frente;
+    const v = forma.foto ?? forma.frente;
     const z = (estampado === "leon-pequeno" ? v.pecho : v.logo) ?? v.pecho ?? v.logo ?? { x: 200, y: 220, w: 60 };
     const ancho = Math.max(z.w * (estampado === "palabra" ? 2.6 : 1.9), 110);
     const alto = ancho * 1.25;
-    caja = `${z.x - ancho / 2} ${z.y + (forma.bajar ?? 0) - alto / 2} ${ancho} ${alto}`;
+    caja = `${z.x - ancho / 2} ${z.y + (forma.foto ? 0 : (forma.bajar ?? 0)) - alto / 2} ${ancho} ${alto}`;
   }
 
   return (
