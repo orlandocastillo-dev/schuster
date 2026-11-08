@@ -127,7 +127,7 @@ function DesdeFoto({ foto, color, estampado, espalda, extra }: { foto: FotoBase;
       {capa(
         <>
           <image href={`${ruta}-sombra.webp`} {...caja} style={{ mixBlendMode: "multiply" }} pointerEvents="none" />
-          <image href={`${ruta}-luz.webp`} {...caja} style={{ mixBlendMode: "screen" }} opacity={esOscuro(color) ? 0.38 : 0.12} pointerEvents="none" />
+          <image href={`${ruta}-luz.webp`} {...caja} style={{ mixBlendMode: "screen" }} opacity={esOscuro(color) ? 0.24 : 0.1} pointerEvents="none" />
         </>,
       )}
     </>
