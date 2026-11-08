@@ -10,6 +10,7 @@ import { Entrada } from "./Entrada";
 import { IconoWhatsApp } from "./Iconos";
 import { tiene } from "../avance";
 import { Pie } from "./Pie";
+import { Subir } from "./Subir";
 
 function Aviso() {
   const aviso = useAviso();
@@ -40,6 +41,7 @@ export function Marco() {
       <Pie />
       {tiene("bolsa") && <CajonBolsa />}
       <aside aria-label="Contacto rápido">
+        <Subir />
         <a
           className="wa-flotante"
           href={enlaceWhatsApp("Hola, Schuster. Quiero más información.")}
