@@ -783,6 +783,15 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   visera: {
+    foto: {
+      archivo: "visera",
+      suelo: 345,
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 200, w: 46 },
+      pecho: { x: 200, y: 200, w: 38 },
+      logoEspalda: { x: 200, y: 200, w: 40 },
+    },
     textura: "tejido",
     bajar: 40,
     frente: {
@@ -795,6 +804,15 @@ export const FORMAS: Record<string, Forma> = {
   },
 
   toalla: {
+    foto: {
+      archivo: "toalla",
+      suelo: 340,
+      y: 0,
+      alto: 500,
+      logo: { x: 200, y: 228, w: 62 },
+      pecho: { x: 200, y: 228, w: 62 },
+      logoEspalda: { x: 200, y: 228, w: 52 },
+    },
     textura: "rizo",
     frente: {
       cuerpo: "M70 180L330 180Q340 180 340 190L340 390Q340 402 328 402L72 402Q60 402 60 390L60 190Q60 180 70 180Z",
