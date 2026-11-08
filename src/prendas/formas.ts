@@ -144,6 +144,14 @@ export const FORMAS: Record<string, Forma> = {
 
   polo: {
     textura: "tejido",
+    foto: {
+      archivo: "polo",
+      y: 2,
+      alto: 496,
+      logo: { x: 200, y: 235, w: 76 },
+      pecho: { x: 268, y: 180, w: 30 },
+      logoEspalda: { x: 200, y: 150, w: 80 },
+    },
     frente: {
       cuerpo: `${CAMISETA}L200 106Z`,
       partes: [
@@ -173,6 +181,14 @@ export const FORMAS: Record<string, Forma> = {
 
   uniforme: {
     textura: "malla",
+    foto: {
+      archivo: "uniforme",
+      y: 2,
+      alto: 496,
+      logo: { x: 200, y: 195, w: 78 },
+      pecho: { x: 262, y: 165, w: 30 },
+      logoEspalda: { x: 200, y: 150, w: 80 },
+    },
     frente: {
       cuerpo: `${CAMISETA}L200 124Z`,
       partes: [
@@ -202,6 +218,14 @@ export const FORMAS: Record<string, Forma> = {
 
   "camisa-corta": {
     textura: "lona",
+    foto: {
+      archivo: "camisa-corta",
+      y: 2,
+      alto: 496,
+      logo: { x: 266, y: 196, w: 30 },
+      pecho: { x: 266, y: 196, w: 30 },
+      logoEspalda: { x: 200, y: 120, w: 60 },
+    },
     frente: {
       cuerpo: `M152 70L112 84L54 124L78 192L114 178${CAMISA_BAJO}L286 178L322 192L346 124L288 84L248 70L200 98Z`,
       partes: [
