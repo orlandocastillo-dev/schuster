@@ -74,3 +74,7 @@ export const enlaceWhatsApp = (texto: string) => {
   const n = numeroWhatsApp();
   return `https://wa.me/${n}?text=${encodeURIComponent(texto)}`;
 };
+
+/** Abre el correo de quien visita con el mensaje listo para la tienda. */
+export const enlaceCorreo = (asunto: string, cuerpo: string) =>
+  `mailto:${tienda.correo}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;

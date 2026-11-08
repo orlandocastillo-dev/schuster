@@ -6,6 +6,7 @@ import { useAtraparFoco, useBloquearScroll } from "../lib/util";
 import { Leon } from "../marca/Logo";
 import { CapaDiseno } from "../prendas/CapaDiseno";
 import { CapaPrenda } from "../prendas/Prenda";
+import { Cantidad } from "./Cantidad";
 import { Icono, IconoWhatsApp } from "./Iconos";
 
 function Miniatura({ l }: { l: Linea }) {
@@ -36,15 +37,7 @@ function Fila({ l, i }: { l: Linea; i: number }) {
         {l.diseno?.frente && <p className="linea__detalle">Frente: {l.diseno.frente.tipo === "logo" ? "tu logo" : `“${l.diseno.frente.texto}”`}</p>}
         {l.diseno?.espalda && <p className="linea__detalle">Espalda: {l.diseno.espalda.tipo === "logo" ? "tu logo" : `“${l.diseno.espalda.texto}”`}</p>}
         <div className="linea__abajo">
-          <div className="cantidad cantidad--chica" role="group" aria-label={`Cantidad de ${l.nombre}`}>
-            <button type="button" onClick={() => bolsa.cantidad(l.clave, l.cantidad - 1)} aria-label="Quitar una unidad">
-              <Icono nombre="menos" />
-            </button>
-            <span aria-live="polite">{l.cantidad}</span>
-            <button type="button" onClick={() => bolsa.cantidad(l.clave, l.cantidad + 1)} aria-label="Agregar una unidad">
-              <Icono nombre="mas" />
-            </button>
-          </div>
+          <Cantidad chica minimo={0} etiqueta={`Cantidad de ${l.nombre}`} valor={l.cantidad} cambiar={(n) => bolsa.cantidad(l.clave, n)} />
           <p className="linea__precio">{precio(l.precio * l.cantidad)}</p>
         </div>
       </div>

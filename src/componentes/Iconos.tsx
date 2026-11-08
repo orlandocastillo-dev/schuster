@@ -17,6 +17,7 @@ const TRAZOS = {
   basura: "M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13",
   check: "M5 12l4.5 4.5L19 7",
   centrar: "M12 3v4M12 17v4M3 12h4M17 12h4M12 9a3 3 0 100 6 3 3 0 000-6z",
+  correo: "M3 6h18v12H3zM3 7l9 6 9-6",
   girar: "M4 12a8 8 0 0114-5.3M20 4v5h-5M20 12a8 8 0 01-14 5.3M4 20v-5h5",
 };
 

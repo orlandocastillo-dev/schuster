@@ -74,12 +74,12 @@ export const bolsa = {
     const clave = [nueva.id, nueva.color.nombre, nueva.talla, nueva.diseno ? JSON.stringify(nueva.diseno) : ""].join("|");
     const existe = lineas.find((l) => l.clave === clave);
     lineas = existe
-      ? lineas.map((l) => (l.clave === clave ? { ...l, cantidad: Math.min(99, l.cantidad + nueva.cantidad) } : l))
+      ? lineas.map((l) => (l.clave === clave ? { ...l, cantidad: Math.min(9999, l.cantidad + nueva.cantidad) } : l))
       : [...lineas, { ...nueva, clave }];
     avisar();
   },
   cantidad(clave: string, cantidad: number) {
-    lineas = cantidad < 1 ? lineas.filter((l) => l.clave !== clave) : lineas.map((l) => (l.clave === clave ? { ...l, cantidad: Math.min(99, cantidad) } : l));
+    lineas = cantidad < 1 ? lineas.filter((l) => l.clave !== clave) : lineas.map((l) => (l.clave === clave ? { ...l, cantidad: Math.min(9999, cantidad) } : l));
     avisar();
   },
   quitar(clave: string) {

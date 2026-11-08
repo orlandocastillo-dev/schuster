@@ -95,7 +95,10 @@ export function Galeria({ producto, color, fotoRef }: { producto: Producto; colo
   const [i, setI] = useState(0);
   const [grande, setGrande] = useState(false);
   const [lupa, setLupa] = useState<string | null>(null);
-  const ir = (d: number) => setI((n) => Math.max(0, Math.min(3, n + d)));
+  const ir = (d: number) => {
+    setLupa(null);
+    setI((n) => Math.max(0, Math.min(3, n + d)));
+  };
   const desliz = useDeslizar(ir);
 
   useEffect(() => setI(0), [producto.id]);
@@ -115,7 +118,7 @@ export function Galeria({ producto, color, fotoRef }: { producto: Producto; colo
         tabIndex={0}
         role="region"
         aria-roledescription="carrusel"
-        aria-label={`Fotos de ${producto.nombre}. Usa las flechas para cambiar de foto y Enter para ampliar.`}
+        aria-label={`Fotos de ${producto.nombre}. Usa las flechas para cambiar de foto y Enter para verla en pantalla completa. Haz clic en la foto para acercarla.`}
         onKeyDown={(e) => {
           if (e.key === "ArrowRight") ir(1);
           if (e.key === "ArrowLeft") ir(-1);
@@ -137,12 +140,18 @@ export function Galeria({ producto, color, fotoRef }: { producto: Producto; colo
               className={`galeria__foto${lupa && k === i ? " galeria__foto--lupa" : ""}`}
               aria-hidden={k !== i}
               onMouseMove={(e) => {
-                if (matchMedia("(hover: none)").matches) return;
+                // Solo se mueve si ya está acercada: pasar el mouse sin querer no hace nada
+                if (!lupa) return;
                 const r = e.currentTarget.getBoundingClientRect();
                 setLupa(`${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`);
               }}
               onMouseLeave={() => setLupa(null)}
-              onClick={() => setGrande(true)}
+              onClick={(e) => {
+                if (matchMedia("(hover: none)").matches) return setGrande(true);
+                if (lupa) return setLupa(null);
+                const r = e.currentTarget.getBoundingClientRect();
+                setLupa(`${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`);
+              }}
               style={lupa && k === i ? { ["--origen" as string]: lupa } : undefined}
             >
               <div className="galeria__cambio" key={color}>
@@ -162,9 +171,9 @@ export function Galeria({ producto, color, fotoRef }: { producto: Producto; colo
             <span key={n} className={k === i ? "galeria__punto--activo" : ""} />
           ))}
         </div>
-        <span className="galeria__ampliar" aria-hidden="true">
+        <button type="button" className="galeria__ampliar" onClick={() => setGrande(true)} aria-label="Ver las fotos en pantalla completa">
           <Icono nombre="lupa" />
-        </span>
+        </button>
       </div>
       {grande && <Pantalla producto={producto} color={color} inicial={i} cerrar={() => setGrande(false)} />}
     </div>

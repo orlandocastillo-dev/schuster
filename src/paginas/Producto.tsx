@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Volver } from "../componentes/Volver";
 import { color as colorDe, enlaceWhatsApp, grupos, precio, producto as buscar, productos, SECCIONES, tallasDe, tienda } from "../datos";
 import { bolsa } from "../estado/bolsa";
 import { avisar } from "../estado/aviso";
 import { Galeria } from "../componentes/Galeria";
 import { GuiaTallas } from "../componentes/GuiaTallas";
+import { Cantidad } from "../componentes/Cantidad";
 import { Icono, IconoWhatsApp } from "../componentes/Iconos";
 import { Modal } from "../componentes/Modal";
 import { TarjetaProducto } from "../componentes/TarjetaProducto";
@@ -72,13 +74,16 @@ function Ficha({ id }: { id: string }) {
 
   return (
     <div className="producto">
-      <nav aria-label="Ruta" className="migas">
-        <Link to="/">Inicio</Link>
-        <span aria-hidden="true">/</span>
-        <Link to={`/${p.seccion}`}>{seccion.nombre}</Link>
-        <span aria-hidden="true">/</span>
-        <Link to={`/${p.seccion}?tipo=${encodeURIComponent(p.tipo)}`}>{p.tipo}</Link>
-      </nav>
+      <div className="fila-volver">
+        <Volver />
+        <nav aria-label="Ruta" className="migas">
+          <Link to="/">Inicio</Link>
+          <span aria-hidden="true">/</span>
+          <Link to={`/${p.seccion}`}>{seccion.nombre}</Link>
+          <span aria-hidden="true">/</span>
+          <Link to={`/${p.seccion}?tipo=${encodeURIComponent(p.tipo)}`}>{p.tipo}</Link>
+        </nav>
+      </div>
 
       <div className="producto__cuerpo">
         <Galeria producto={p} color={color} fotoRef={foto} />
@@ -132,15 +137,7 @@ function Ficha({ id }: { id: string }) {
             )}
 
             <div className="producto__comprar">
-              <div className="cantidad" role="group" aria-label="Cantidad">
-                <button type="button" onClick={() => setCantidad((n) => Math.max(1, n - 1))} aria-label="Quitar una unidad" disabled={cantidad <= 1}>
-                  <Icono nombre="menos" />
-                </button>
-                <span aria-live="polite">{cantidad}</span>
-                <button type="button" onClick={() => setCantidad((n) => Math.min(99, n + 1))} aria-label="Agregar una unidad">
-                  <Icono nombre="mas" />
-                </button>
-              </div>
+              <Cantidad valor={cantidad} cambiar={setCantidad} />
               <button ref={boton} type="button" className="boton boton--ancho" onClick={agregar}>
                 <Icono nombre="bolsa" />
                 <span>Agregar a la bolsa</span>

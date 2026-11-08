@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { color, deSeccion, enlaceWhatsApp, porNovedad, productos, SECCIONES, tienda, type Seccion } from "../datos";
 import { Icono, IconoInstagram, IconoWhatsApp } from "../componentes/Iconos";
+import { Contacto } from "../componentes/Contacto";
 import { TarjetaProducto } from "../componentes/TarjetaProducto";
 import { useTitulo } from "../lib/util";
 import { Leon, Palabra } from "../marca/Logo";
@@ -341,6 +342,9 @@ export default function Inicio() {
       <FranjaPersonaliza />
       <PorSeccion />
       <ComoPedir />
+      <section className="bloque bloque--contacto" id="contacto" aria-label="Contacto">
+        <Contacto />
+      </section>
       <TiendaFisica />
     </>
   );

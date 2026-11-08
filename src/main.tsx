@@ -11,6 +11,8 @@ import "./estilos.css";
 const Producto = lazy(() => import("./paginas/Producto"));
 const Personaliza = lazy(() => import("./paginas/Personaliza"));
 const GuiaTallasPagina = lazy(() => import("./paginas/GuiaTallasPagina"));
+const Legal = lazy(() => import("./paginas/Legal"));
+const ContactoPagina = lazy(() => import("./paginas/ContactoPagina"));
 
 const esperar = (el: React.ReactNode) => <Suspense fallback={<div className="cargando" aria-label="Cargando" />}>{el}</Suspense>;
 
@@ -27,6 +29,12 @@ const rutas = [
       { path: "/producto/:id", element: esperar(<Producto />) },
       { path: "/personaliza", element: esperar(<Personaliza />) },
       { path: "/guia-de-tallas", element: esperar(<GuiaTallasPagina />) },
+      { path: "/contacto", element: esperar(<ContactoPagina />) },
+      { path: "/terminos", element: esperar(<Legal />) },
+      { path: "/privacidad", element: esperar(<Legal />) },
+      { path: "/cookies", element: esperar(<Legal />) },
+      { path: "/cambios-y-devoluciones", element: esperar(<Legal />) },
+      { path: "/compra-segura", element: esperar(<Legal />) },
       { path: "*", element: <NoEncontrada /> },
     ],
   },

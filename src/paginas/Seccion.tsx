@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { Volver } from "../componentes/Volver";
 import { color as colorDe, porNovedad, productos, SECCIONES, tallasDe, type Producto, type Seccion as Id } from "../datos";
 import { Icono } from "../componentes/Iconos";
 import { TarjetaProducto } from "../componentes/TarjetaProducto";
@@ -138,11 +139,14 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
   return (
     <div className="seccion">
       <header className="seccion__cabeza">
-        <nav aria-label="Ruta" className="migas">
-          <Link to="/">Inicio</Link>
-          <span aria-hidden="true">/</span>
-          <span aria-current="page">{titulo}</span>
-        </nav>
+        <div className="fila-volver">
+          <Volver />
+          <nav aria-label="Ruta" className="migas">
+            <Link to="/">Inicio</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{titulo}</span>
+          </nav>
+        </div>
         <h1 className="titular titular--seccion" key={titulo}>
           {titulo}
         </h1>

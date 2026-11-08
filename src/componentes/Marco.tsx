@@ -3,6 +3,7 @@ import { enlaceWhatsApp } from "../datos";
 import { useAviso } from "../estado/aviso";
 import { useRevelar } from "../lib/util";
 import { Sprite } from "../marca/Logo";
+import { AvisoCookies } from "./AvisoCookies";
 import { CajonBolsa } from "./CajonBolsa";
 import { Encabezado } from "./Encabezado";
 import { Entrada } from "./Entrada";
@@ -44,6 +45,7 @@ export function Marco() {
         </a>
       </aside>
       <Aviso />
+      <AvisoCookies />
       <ScrollRestoration />
     </>
   );

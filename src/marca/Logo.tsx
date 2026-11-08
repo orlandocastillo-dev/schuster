@@ -1,5 +1,11 @@
 import { CAJA_LEON, CAJA_LOGO, CAJA_PALABRA, LEON, LETRAS } from "./trazos";
 
+// El símbolo se dibuja desde 0,0: el lienzo de afuera tiene que empezar ahí también o el dibujo queda corrido
+const desdeCero = (caja: string) => {
+  const [, , w, h] = caja.split(" ");
+  return `0 0 ${w} ${h}`;
+};
+
 const TEXTURAS = ["tejido", "denim", "malla", "lona", "rizo", "nailon"];
 
 /** Se pone una sola vez en la página: el logo como símbolos y lo que comparten los dibujos de las prendas. */
@@ -73,7 +79,7 @@ export function Logo({ className, titulo }: Props) {
 
 export function Leon({ className, titulo }: Props) {
   return (
-    <svg className={className} viewBox={CAJA_LEON} {...etiqueta(titulo)}>
+    <svg className={className} viewBox={desdeCero(CAJA_LEON)} {...etiqueta(titulo)}>
       <use href="#s-leon" />
     </svg>
   );
@@ -81,7 +87,7 @@ export function Leon({ className, titulo }: Props) {
 
 export function Palabra({ className, titulo }: Props) {
   return (
-    <svg className={className} viewBox={CAJA_PALABRA} {...etiqueta(titulo)}>
+    <svg className={className} viewBox={desdeCero(CAJA_PALABRA)} {...etiqueta(titulo)}>
       <use href="#s-palabra" />
     </svg>
   );

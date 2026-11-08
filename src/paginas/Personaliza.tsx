@@ -1,14 +1,16 @@
 import { useRef, useState, type PointerEvent as EventoPuntero } from "react";
 import { Link } from "react-router-dom";
-import { color as colorDe, grupos, personaliza, precio, tienda } from "../datos";
+import { color as colorDe, enlaceCorreo, enlaceWhatsApp, grupos, personaliza, precio, tienda } from "../datos";
 import { bolsa, type Diseno } from "../estado/bolsa";
 import { avisar } from "../estado/aviso";
 import { GuiaTallas } from "../componentes/GuiaTallas";
-import { Icono } from "../componentes/Iconos";
+import { Cantidad } from "../componentes/Cantidad";
+import { Icono, IconoWhatsApp } from "../componentes/Iconos";
+import { Volver } from "../componentes/Volver";
 import { Modal } from "../componentes/Modal";
 import { useTitulo, volarABolsa } from "../lib/util";
 import { CapaDiseno } from "../prendas/CapaDiseno";
-import { CapaPrenda } from "../prendas/Prenda";
+import { CapaPrenda, esOscuro } from "../prendas/Prenda";
 import { FORMAS } from "../prendas/formas";
 
 const FUENTES = [
@@ -68,6 +70,8 @@ export default function Personaliza() {
   const ladosUsados = (Object.keys(disenos) as Lado[]).filter((l) => disenos[l]);
   const valor = prenda.precio + personaliza.precioPorLado * ladosUsados.length;
 
+  const mensajePropio = `Hola, Schuster. Ya tengo mi diseño y quiero cotizarlo.\n\nPrenda: ${prenda.nombre}\nColor: ${c.nombre}\nCantidad: ${cantidad}${talla ? `\nTalla: ${talla}` : ""}\n\nTe adjunto el archivo.`;
+
   const centro = () => ({ x: area.x + area.w / 2, y: area.y + bajar + area.h * 0.36 });
 
   function cambiar(cambios: Partial<Diseno>) {
@@ -86,7 +90,7 @@ export default function Personaliza() {
       ...d,
       [lado]:
         m === "texto"
-          ? { tipo: "texto", texto: "", fuente: FUENTES[0].familia, fuenteNombre: FUENTES[0].nombre, tinta: c.hex === "#141414" ? "#ffffff" : "#111111", tintaNombre: c.hex === "#141414" ? "Blanco" : "Negro", tamano: 28, ...base }
+          ? { tipo: "texto", texto: "", fuente: FUENTES[0].familia, fuenteNombre: FUENTES[0].nombre, tinta: esOscuro(c.hex) ? "#ffffff" : "#111111", tintaNombre: esOscuro(c.hex) ? "Blanco" : "Negro", tamano: 28, ...base }
           : { tipo: "logo", tamano: Math.round(area.w * 0.6), ...base },
     }));
   }
@@ -178,6 +182,14 @@ export default function Personaliza() {
   return (
     <div className="personaliza">
       <header className="personaliza__cabeza">
+        <div className="fila-volver">
+          <Volver />
+          <nav aria-label="Ruta" className="migas">
+            <Link to="/">Inicio</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Personaliza</span>
+          </nav>
+        </div>
         <p className="sobretitulo">Desde una sola unidad</p>
         <h1 className="titular titular--seccion">Personaliza</h1>
         <p className="seccion__frase">Escoge la prenda, ponle tu texto o tu logo y mira cómo queda. Nosotros la estampamos.</p>
@@ -237,6 +249,22 @@ export default function Personaliza() {
         </div>
 
         <div className="personaliza__panel">
+          <section className="propio" aria-labelledby="titulo-propio">
+            <h2 id="titulo-propio">¿Ya tienes tu diseño?</h2>
+            <p>Envíanoslo con la prenda, el color y la cantidad que necesitas, y te cotizamos. Sirve el archivo que tengas: PNG, PDF, JPG o el de tu diseñador.</p>
+            <div className="propio__botones">
+              <a className="boton boton--wa" href={enlaceWhatsApp(mensajePropio)} target="_blank" rel="noreferrer">
+                <IconoWhatsApp className="icono" />
+                <span>Por WhatsApp</span>
+              </a>
+              <a className="boton boton--borde" href={enlaceCorreo("Ya tengo mi diseño", mensajePropio)}>
+                <Icono nombre="correo" />
+                <span>Por correo</span>
+              </a>
+            </div>
+            {tienda.correo && <p className="propio__correo">Nuestro correo: {tienda.correo}</p>}
+          </section>
+
           <section className="paso">
             <h2 className="paso__titulo">
               <span>1</span> Prenda
@@ -365,15 +393,7 @@ export default function Personaliza() {
                 </div>
               </>
             )}
-            <div className="cantidad" role="group" aria-label="Cantidad">
-              <button type="button" onClick={() => setCantidad((n) => Math.max(1, n - 1))} aria-label="Quitar una unidad" disabled={cantidad <= 1}>
-                <Icono nombre="menos" />
-              </button>
-              <span aria-live="polite">{cantidad}</span>
-              <button type="button" onClick={() => setCantidad((n) => Math.min(99, n + 1))} aria-label="Agregar una unidad">
-                <Icono nombre="mas" />
-              </button>
-            </div>
+            <Cantidad valor={cantidad} cambiar={setCantidad} />
           </section>
 
           <div className="resumen">

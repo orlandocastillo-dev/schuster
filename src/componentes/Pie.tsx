@@ -3,6 +3,14 @@ import { enlaceWhatsApp, SECCIONES, tienda } from "../datos";
 import { Logo, Palabra } from "../marca/Logo";
 import { IconoInstagram, IconoWhatsApp } from "./Iconos";
 
+const LEGALES = [
+  ["/terminos", "Términos y condiciones"],
+  ["/privacidad", "Datos personales"],
+  ["/cookies", "Cookies"],
+  ["/cambios-y-devoluciones", "Cambios y devoluciones"],
+  ["/compra-segura", "Compra segura"],
+];
+
 export function Pie() {
   const anio = new Date().getFullYear();
   return (
@@ -39,10 +47,21 @@ export function Pie() {
               <Link to="/#como-pedir">Cómo pedir</Link>
             </li>
             <li>
+              <Link to="/contacto">Contacto</Link>
+            </li>
+            <li>
               <a href={enlaceWhatsApp("Hola, Schuster. Tengo una pregunta.")} target="_blank" rel="noreferrer">
                 Escríbenos por WhatsApp
               </a>
             </li>
+          </ul>
+          <h2 className="pie__subtitulo">Legal</h2>
+          <ul>
+            {LEGALES.map(([a, nombre]) => (
+              <li key={a}>
+                <Link to={a}>{nombre}</Link>
+              </li>
+            ))}
           </ul>
         </nav>
         <div className="pie__col">
@@ -52,6 +71,11 @@ export function Pie() {
             <br />
             {tienda.ciudad}, Colombia
           </address>
+          {tienda.correo && (
+            <a className="pie__correo" href={`mailto:${tienda.correo}`}>
+              {tienda.correo}
+            </a>
+          )}
           <div className="pie__redes">
             <a href={`https://instagram.com/${tienda.instagram}`} target="_blank" rel="noreferrer" aria-label="Instagram">
               <IconoInstagram />
