@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent as EventoPuntero } from "react";
+import { useEffect, useRef, useState, type PointerEvent as EventoPuntero } from "react";
 import { Link } from "react-router-dom";
 import { color as colorDe, enlaceCorreo, enlaceWhatsApp, grupos, personaliza, precio, tienda } from "../datos";
 import { bolsa, type Diseno } from "../estado/bolsa";
@@ -59,6 +59,9 @@ export default function Personaliza() {
   const [error, setError] = useState("");
   const [guia, setGuia] = useState(false);
   const [arrastrando, setArrastrando] = useState(false);
+  // Distancia entre el dedo y el centro del diseño, para que no salte al agarrarlo
+  const desfase = useRef({ x: 0, y: 0 });
+  const agarre = useRef<SVGGElement>(null);
   const lienzo = useRef<SVGSVGElement>(null);
   const vista = useRef<HTMLDivElement>(null);
 
@@ -71,6 +74,8 @@ export default function Personaliza() {
   const valor = prenda.precio + personaliza.precioPorLado * ladosUsados.length;
 
   const mensajePropio = `Hola, Schuster. Ya tengo mi diseño y quiero cotizarlo.\n\nPrenda: ${prenda.nombre}\nColor: ${c.nombre}\nCantidad: ${cantidad}${talla ? `\nTalla: ${talla}` : ""}\n\nTe adjunto el archivo.`;
+
+  const mensajeAyuda = `Hola, Schuster. Quiero una prenda personalizada pero necesito ayuda con el diseño.\n\nPrenda: ${prenda.nombre}\nColor: ${c.nombre}\nCantidad: ${cantidad}\n\nMi idea es: `;
 
   const centro = () => ({ x: area.x + area.w / 2, y: area.y + bajar + area.h * 0.36 });
 
@@ -139,11 +144,35 @@ export default function Personaliza() {
     y: Math.round(Math.max(area.y + bajar, Math.min(area.y + bajar + area.h, y))),
   });
 
-  function mover(e: EventoPuntero<SVGRectElement>) {
+  function mover(e: EventoPuntero<SVGElement>) {
     if (!arrastrando || !actual) return;
     const p = aLienzo(e);
-    cambiar(limitar(p.x, p.y));
+    cambiar(limitar(p.x + desfase.current.x, p.y + desfase.current.y));
   }
+
+  function agarrar(e: EventoPuntero<SVGElement>, saltar: boolean) {
+    if (!actual) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const p = aLienzo(e);
+    desfase.current = saltar ? { x: 0, y: 0 } : { x: actual.x - p.x, y: actual.y - p.y };
+    setArrastrando(true);
+    if (saltar) cambiar(limitar(p.x, p.y));
+  }
+
+  // En iPhone, tocar el diseño no debe mover la página mientras se arrastra
+  useEffect(() => {
+    const el = agarre.current;
+    if (!el) return;
+    const quieto = (e: TouchEvent) => e.preventDefault();
+    el.addEventListener("touchstart", quieto, { passive: false });
+    return () => el.removeEventListener("touchstart", quieto);
+  });
+
+  const caja = actual
+    ? actual.tipo === "logo"
+      ? { w: actual.tamano + 16, h: actual.tamano + 16 }
+      : { w: Math.max(40, (actual.texto?.length ?? 1) * actual.tamano * 0.66) + 16, h: actual.tamano * 1.4 }
+    : { w: 0, h: 0 };
 
   function tecla(e: React.KeyboardEvent) {
     if (!actual) return;
@@ -215,15 +244,23 @@ export default function Personaliza() {
                           width={area.w}
                           height={area.h}
                           className={`personaliza__area${arrastrando ? " personaliza__area--activa" : ""}`}
-                          onPointerDown={(e) => {
-                            e.currentTarget.setPointerCapture(e.pointerId);
-                            setArrastrando(true);
-                            cambiar(limitar(aLienzo(e).x, aLienzo(e).y));
-                          }}
+                          onPointerDown={(e) => e.pointerType === "mouse" && agarrar(e, true)}
                           onPointerMove={mover}
                           onPointerUp={() => setArrastrando(false)}
                           onPointerCancel={() => setArrastrando(false)}
                         />
+                      )}
+                      {actual && (
+                        <g
+                          ref={agarre}
+                          className="personaliza__agarre"
+                          onPointerDown={(e) => agarrar(e, false)}
+                          onPointerMove={mover}
+                          onPointerUp={() => setArrastrando(false)}
+                          onPointerCancel={() => setArrastrando(false)}
+                        >
+                          <rect x={actual.x - caja.w / 2} y={actual.y - caja.h / 2} width={caja.w} height={caja.h} />
+                        </g>
                       )}
                     </>
                   }
@@ -243,7 +280,7 @@ export default function Personaliza() {
           )}
           {actual && (
             <p className="personaliza__ayuda">
-              Arrastra el diseño sobre la prenda para moverlo. Con el teclado, enfoca el diseño y usa las flechas.
+              Toca y arrastra el diseño para moverlo. Con el teclado, usa el botón "Mover con flechas".
             </p>
           )}
         </div>
@@ -263,6 +300,21 @@ export default function Personaliza() {
               </a>
             </div>
             {tienda.correo && <p className="propio__correo">Nuestro correo: {tienda.correo}</p>}
+          </section>
+
+          <section className="propio propio--ayuda" aria-labelledby="titulo-ayuda">
+            <h2 id="titulo-ayuda">¿No sabes qué diseño quieres?</h2>
+            <p>No te preocupes, te ayudamos. Cuéntanos tu idea, para qué es la prenda y los colores que te gustan, y nuestro equipo de diseño la crea a tu gusto.</p>
+            <div className="propio__botones">
+              <a className="boton boton--wa" href={enlaceWhatsApp(mensajeAyuda)} target="_blank" rel="noreferrer">
+                <IconoWhatsApp className="icono" />
+                <span>Por WhatsApp</span>
+              </a>
+              <a className="boton boton--borde" href={enlaceCorreo("Quiero que me ayuden con el diseño", mensajeAyuda)}>
+                <Icono nombre="correo" />
+                <span>Por correo</span>
+              </a>
+            </div>
           </section>
 
           <section className="paso">

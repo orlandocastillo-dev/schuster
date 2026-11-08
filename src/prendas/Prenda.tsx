@@ -95,9 +95,9 @@ function Dibujo({ vista, forma, color, estampado, conLogo, extra }: Capa) {
       ))}
       {conLogo && zona && <Marca zona={zona} tipo={estampado} tinta={tinta} />}
       {extra}
-      <path d={vista.cuerpo} fill="url(#g-volumen)" fillRule="evenodd" />
-      <path d={vista.cuerpo} fill="url(#g-luz)" fillRule="evenodd" />
-      {forma.textura === "ninguna" || textura === "nailon" ? <path d={vista.cuerpo} fill="url(#g-brillo)" fillRule="evenodd" opacity={0.7} /> : null}
+      <path d={vista.cuerpo} fill="url(#g-volumen)" fillRule="evenodd" pointerEvents="none" />
+      <path d={vista.cuerpo} fill="url(#g-luz)" fillRule="evenodd" pointerEvents="none" />
+      {forma.textura === "ninguna" || textura === "nailon" ? <path d={vista.cuerpo} fill="url(#g-brillo)" fillRule="evenodd" opacity={0.7} pointerEvents="none" /> : null}
     </>
   );
 }

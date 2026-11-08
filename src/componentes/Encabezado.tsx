@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { deSeccion, porNovedad, SECCIONES, tienda, type Seccion } from "../datos";
 import { bolsa, unidades, useBolsa } from "../estado/bolsa";
 import { useAtraparFoco, useBloquearScroll, conTransicion } from "../lib/util";
@@ -130,7 +130,8 @@ function MenuMovil({ abierto, cerrar }: { abierto: boolean; cerrar: () => void }
 }
 
 export function Encabezado() {
-  const { pathname } = useLocation();
+  const { pathname, key } = useLocation();
+  const ir = useNavigate();
   const lineas = useBolsa();
   const n = unidades(lineas);
   const [arriba, setArriba] = useState(true);
@@ -158,6 +159,11 @@ export function Encabezado() {
       <header className="encabezado" data-transparente={transparente || undefined} data-compacto={!arriba || undefined} onMouseLeave={() => setPanel(null)}>
         <div className="encabezado__fila">
           <div className="encabezado__izq">
+            {!enInicio && (
+              <button type="button" className="boton-icono encabezado__atras" aria-label="Volver" onClick={() => (key === "default" ? ir("/") : ir(-1))}>
+                <Icono nombre="atras" />
+              </button>
+            )}
             <button
               type="button"
               className="boton-icono encabezado__menu"

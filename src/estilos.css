@@ -641,7 +641,13 @@ html[data-entrada="muestra"] body {
 .solo-escritorio {
   display: none !important;
 }
+.encabezado__atras {
+  display: inline-grid;
+}
 @media (min-width: 1024px) {
+  .encabezado__atras {
+    display: none !important;
+  }
   .solo-escritorio {
     display: inline-grid !important;
   }
@@ -2742,7 +2748,20 @@ body:has(.barra-compra--visible) .wa-flotante {
 .personaliza__giro svg {
   width: 100%;
   height: 100%;
+  touch-action: pan-y pinch-zoom;
+}
+.personaliza__agarre {
+  cursor: grab;
   touch-action: none;
+}
+.personaliza__agarre rect {
+  fill: rgb(255 255 255 / 0.001);
+  stroke: transparent;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+.personaliza__agarre:hover rect {
+  stroke: var(--rojo);
 }
 @keyframes giro {
   from {
@@ -3460,6 +3479,24 @@ body:has(.barra-compra--visible) .wa-flotante {
 }
 .propio__botones .boton {
   padding: 0 14px;
+}
+@media (max-width: 520px) {
+  .propio__botones {
+    grid-template-columns: 1fr;
+  }
+}
+.propio--ayuda {
+  background: var(--papel);
+  color: var(--negro);
+}
+.propio--ayuda p {
+  color: var(--gris);
+}
+.propio.propio--ayuda .boton--borde {
+  border-color: var(--negro);
+  color: var(--negro);
+  --barrido: var(--negro);
+  --texto-barrido: #fff;
 }
 .propio .boton--borde {
   border-color: rgb(255 255 255 / 0.6);

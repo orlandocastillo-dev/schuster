@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Volver } from "../componentes/Volver";
 import { color as colorDe, porNovedad, productos, SECCIONES, tallasDe, type Producto, type Seccion as Id } from "../datos";
@@ -46,6 +46,23 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
   const caja = useRef<HTMLDivElement>(null);
   useBloquearScroll(cajon);
   useAtraparFoco(caja, cajon, () => setCajon(false));
+
+  // Al filtrar u ordenar, la lista arranca desde arriba
+  const cuerpo = useRef<HTMLDivElement>(null);
+  const filtrosTexto = params.toString();
+  const primera = useRef(true);
+  useEffect(() => {
+    if (primera.current) {
+      primera.current = false;
+      return;
+    }
+    const el = cuerpo.current;
+    if (!el) return;
+    const barra = document.querySelector(".seccion__barra")?.getBoundingClientRect().height ?? 0;
+    const encabezado = document.querySelector(".encabezado")?.getBoundingClientRect().height ?? 0;
+    const arriba = el.getBoundingClientRect().top + window.scrollY - barra - encabezado;
+    if (window.scrollY > arriba) window.scrollTo({ top: arriba, behavior: "smooth" });
+  }, [filtrosTexto]);
 
   const base = useMemo(() => (seccion ? productos.filter((p) => p.seccion === seccion) : productos), [seccion]);
   const tipos = [...new Set(base.map((p) => p.tipo))];
@@ -211,7 +228,7 @@ export default function Seccion({ seccion }: { seccion?: Id }) {
         </div>
       )}
 
-      <div className={`seccion__cuerpo${tiene("filtros") ? "" : " seccion__cuerpo--sin-filtros"}`}>
+      <div ref={cuerpo} className={`seccion__cuerpo${tiene("filtros") ? "" : " seccion__cuerpo--sin-filtros"}`}>
         {tiene("filtros") && (
           <aside className="seccion__filtros" aria-label="Filtros">
             {filtros}
