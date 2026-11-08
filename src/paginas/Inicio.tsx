@@ -141,6 +141,16 @@ function Secciones() {
 
 function Carril({ titulo, enlace, lista, id }: { titulo: string; enlace: string; lista: typeof productos; id: string }) {
   const pista = useRef<HTMLDivElement>(null);
+  const [borde, setBorde] = useState({ inicio: true, fin: false });
+  const medir = () => {
+    const el = pista.current;
+    if (el) setBorde({ inicio: el.scrollLeft < 8, fin: el.scrollLeft + el.clientWidth > el.scrollWidth - 8 });
+  };
+  useEffect(() => {
+    medir();
+    window.addEventListener("resize", medir);
+    return () => window.removeEventListener("resize", medir);
+  }, []);
   const mover = (dir: number) => {
     const el = pista.current;
     if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
@@ -155,18 +165,21 @@ function Carril({ titulo, enlace, lista, id }: { titulo: string; enlace: string;
           <Link to={enlace} className="enlace-flecha">
             Ver todo <Icono nombre="flecha" />
           </Link>
-          <button type="button" className="boton-icono boton-icono--borde solo-escritorio" onClick={() => mover(-1)} aria-label="Anteriores">
-            <Icono nombre="izquierda" />
-          </button>
-          <button type="button" className="boton-icono boton-icono--borde solo-escritorio" onClick={() => mover(1)} aria-label="Siguientes">
-            <Icono nombre="derecha" />
-          </button>
         </div>
       </div>
-      <div className="carril" ref={pista}>
-        {lista.map((p, i) => (
-          <TarjetaProducto key={p.id} producto={p} retraso={Math.min(i, 5) * 70} />
-        ))}
+      <div className="carril-marco">
+        <div className="carril" ref={pista} onScroll={medir}>
+          {lista.map((p, i) => (
+            <TarjetaProducto key={p.id} producto={p} retraso={Math.min(i, 5) * 70} />
+          ))}
+        </div>
+        {/* Flechas sobre el carril para mover con el mouse; en celular se desliza con el dedo */}
+        <button type="button" className="carril__flecha carril__flecha--izq" onClick={() => mover(-1)} aria-label="Anteriores" hidden={borde.inicio}>
+          <Icono nombre="izquierda" />
+        </button>
+        <button type="button" className="carril__flecha carril__flecha--der" onClick={() => mover(1)} aria-label="Siguientes" hidden={borde.fin}>
+          <Icono nombre="derecha" />
+        </button>
       </div>
     </section>
   );
