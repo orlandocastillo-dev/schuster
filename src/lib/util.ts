@@ -126,3 +126,10 @@ export function volarABolsa(origen: Element | null) {
       destino.animate([{ transform: "scale(1)" }, { transform: "scale(1.28)" }, { transform: "scale(1)" }], { duration: 380, easing: "ease-out" });
     });
 }
+
+/**
+ * La animación entre páginas solo en computador y con la página abierta directamente.
+ * En celulares y dentro de un marco (la vista previa de Claude) algunos navegadores se quedan pegados en ella.
+ */
+export const conTransicion =
+  typeof window !== "undefined" && window.self === window.top && matchMedia("(hover: hover) and (pointer: fine)").matches && !sinMovimiento();

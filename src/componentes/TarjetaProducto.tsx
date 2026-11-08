@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { color as colorDe, precio, tallasDe, type Producto } from "../datos";
 import { bolsa } from "../estado/bolsa";
 import { avisar } from "../estado/aviso";
-import { volarABolsa } from "../lib/util";
+import { volarABolsa, conTransicion } from "../lib/util";
 import { FotoProducto } from "./FotoProducto";
 import { tiene } from "../avance";
 import { Icono } from "./Iconos";
@@ -35,7 +35,7 @@ export function TarjetaProducto({ producto: p, retraso = 0, prioridad }: { produ
   return (
     <article className="tarjeta" data-revelar style={{ ["--retraso" as string]: `${retraso}ms` }} onMouseLeave={() => setTallas(false)}>
       <div className="tarjeta__marco">
-        <Link to={enlace} className="tarjeta__foto" viewTransition aria-label={`${p.nombre}, ${precio(p.precio)}`}>
+        <Link to={enlace} className="tarjeta__foto" viewTransition={conTransicion} aria-label={`${p.nombre}, ${precio(p.precio)}`}>
           <div ref={foto} className="tarjeta__capa tarjeta__capa--1">
             <FotoProducto producto={p} color={color} n={1} prioridad={prioridad} />
           </div>
@@ -64,7 +64,7 @@ export function TarjetaProducto({ producto: p, retraso = 0, prioridad }: { produ
       </div>
       <div className="tarjeta__info">
         <h3 className="tarjeta__nombre">
-          <Link to={enlace} viewTransition tabIndex={-1}>
+          <Link to={enlace} viewTransition={conTransicion} tabIndex={-1}>
             {p.nombre}
           </Link>
         </h3>

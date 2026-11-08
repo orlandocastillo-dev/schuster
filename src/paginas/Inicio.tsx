@@ -4,7 +4,7 @@ import { color, deSeccion, enlaceWhatsApp, porNovedad, productos, SECCIONES, tie
 import { Icono, IconoInstagram, IconoWhatsApp } from "../componentes/Iconos";
 import { Contacto } from "../componentes/Contacto";
 import { TarjetaProducto } from "../componentes/TarjetaProducto";
-import { useTitulo } from "../lib/util";
+import { useTitulo, conTransicion } from "../lib/util";
 import { Leon, Palabra } from "../marca/Logo";
 import { CapaDiseno } from "../prendas/CapaDiseno";
 import { tiene } from "../avance";
@@ -81,10 +81,10 @@ function Portada() {
           Ropa para hombre, dama y niños, accesorios y prendas con tu nombre o tu logo desde una sola unidad.
         </p>
         <div className="portada__botones" data-entra style={{ ["--i" as string]: 4 }}>
-          <Link to="/tienda" className="boton boton--claro" viewTransition>
+          <Link to="/tienda" className="boton boton--claro" viewTransition={conTransicion}>
             <span>Ver la tienda</span>
           </Link>
-          <Link to="/personaliza" className="boton boton--borde-claro" viewTransition>
+          <Link to="/personaliza" className="boton boton--borde-claro" viewTransition={conTransicion}>
             <span>Personaliza la tuya</span>
           </Link>
         </div>
@@ -122,7 +122,7 @@ function Secciones() {
               className={`mosaico__item${s.id === "hombre" ? " mosaico__item--oscuro" : ""}`}
               style={{ ["--fondo" as string]: m.fondo, ["--retraso" as string]: `${i * 90}ms` }}
               data-revelar
-              viewTransition
+              viewTransition={conTransicion}
             >
               <svg className="mosaico__prenda" viewBox="0 0 400 500" aria-hidden="true">
                 <CapaPrenda forma={m.forma} color={color(m.color).hex} estampado={m.estampado} />
@@ -219,7 +219,7 @@ function FranjaPersonaliza() {
           Tu equipo.
         </h2>
         <p>Escoge la prenda y el color, escribe tu texto o sube tu logo y mira cómo queda antes de pedirla. Lo hacemos desde una sola unidad.</p>
-        <Link to="/personaliza" className="boton boton--claro" viewTransition>
+        <Link to="/personaliza" className="boton boton--claro" viewTransition={conTransicion}>
           <span>Empezar a diseñar</span>
         </Link>
       </div>
@@ -266,7 +266,7 @@ function PorSeccion() {
         ))}
       </div>
       <div className="bloque__pie">
-        <Link to={`/${s}`} className="boton boton--borde" viewTransition>
+        <Link to={`/${s}`} className="boton boton--borde" viewTransition={conTransicion}>
           <span>Ver todo {SECCIONES.find((x) => x.id === s)!.nombre.toLowerCase()}</span>
         </Link>
       </div>

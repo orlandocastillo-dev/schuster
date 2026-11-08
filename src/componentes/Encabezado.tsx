@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { deSeccion, porNovedad, SECCIONES, tienda, type Seccion } from "../datos";
 import { bolsa, unidades, useBolsa } from "../estado/bolsa";
-import { useAtraparFoco, useBloquearScroll } from "../lib/util";
+import { useAtraparFoco, useBloquearScroll, conTransicion } from "../lib/util";
 import { Logo } from "../marca/Logo";
 import { FotoProducto } from "./FotoProducto";
 import { Icono, IconoInstagram, IconoWhatsApp } from "./Iconos";
@@ -172,7 +172,7 @@ export function Encabezado() {
               <ul>
                 {SECCIONES.map((s) => (
                   <li key={s.id} onMouseEnter={() => setPanel(s.id)}>
-                    <NavLink to={`/${s.id}`} className="nav__enlace" viewTransition>
+                    <NavLink to={`/${s.id}`} className="nav__enlace" viewTransition={conTransicion}>
                       {s.nombre}
                     </NavLink>
                     <button
@@ -188,7 +188,7 @@ export function Encabezado() {
                   </li>
                 ))}
                 <li onMouseEnter={() => setPanel(null)}>
-                  <NavLink to="/personaliza" className="nav__enlace nav__enlace--rojo" viewTransition>
+                  <NavLink to="/personaliza" className="nav__enlace nav__enlace--rojo" viewTransition={conTransicion}>
                     Personaliza
                   </NavLink>
                 </li>
@@ -196,7 +196,7 @@ export function Encabezado() {
             </nav>
           </div>
 
-          <Link to="/" className="encabezado__logo" aria-label={`${tienda.nombre}, ir al inicio`} viewTransition>
+          <Link to="/" className="encabezado__logo" aria-label={`${tienda.nombre}, ir al inicio`} viewTransition={conTransicion}>
             <Logo />
           </Link>
 
