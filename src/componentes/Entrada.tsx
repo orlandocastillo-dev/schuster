@@ -6,6 +6,8 @@ import { sinMovimiento } from "../lib/util";
 const VISTA = "schuster:entrada";
 
 function yaSeVio() {
+  // Con ?intro en el enlace la entrada sale siempre (para grabar videos)
+  if (new URLSearchParams(location.search).has("intro")) return false;
   try {
     return sessionStorage.getItem(VISTA) === "1";
   } catch {
