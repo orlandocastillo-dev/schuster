@@ -12,8 +12,4 @@ const DESDE = {
 };
 
 export const AVANCE = Number(import.meta.env.VITE_AVANCE) || 4;
-// Funciones sueltas que se quieren mostrar antes de su avance, ej. VITE_AVANCE_EXTRA=contacto
-const EXTRA = String(import.meta.env.VITE_AVANCE_EXTRA ?? "")
-  .split(",")
-  .map((s) => s.trim());
-export const tiene = (funcion: keyof typeof DESDE) => AVANCE >= DESDE[funcion] || EXTRA.includes(funcion);
+export const tiene = (funcion: keyof typeof DESDE) => AVANCE >= DESDE[funcion];
